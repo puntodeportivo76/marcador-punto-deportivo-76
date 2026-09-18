@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Punto Deportivo 76 - Marcador</title>
+<style>
+*{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;background:transparent;font-family:Arial,Helvetica,sans-serif}
+body{display:flex;align-items:flex-start;justify-content:center;padding:1.5%}
+.board{width:96%;max-width:1100px;background:rgba(10,10,12,.92);border:3px solid #e31b23;border-radius:14px;color:#fff;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.45)}
+.top{display:flex;align-items:center;justify-content:center;background:#e31b23;font-weight:900;letter-spacing:1px;font-size:clamp(13px,2vw,22px);padding:5px}
+.row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:10px 14px 6px}
+.team{text-align:center;font-weight:900;font-size:clamp(14px,2.8vw,30px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.score{font-size:clamp(34px,7vw,72px);font-weight:900;line-height:.9;color:#fff}
+.center{text-align:center}
+.period{font-size:clamp(12px,1.8vw,18px);font-weight:800}
+.clock{font-size:clamp(20px,3.5vw,38px);font-weight:900;margin-top:3px}
+.bottom{display:flex;justify-content:center;align-items:center;gap:12px;border-top:1px solid #444;padding:5px 10px;font-size:clamp(10px,1.5vw,16px);font-weight:800}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e31b23;margin-right:5px}
+.controls{background:#f3f3f3;color:#111;padding:12px;display:grid;gap:8px}
+.controls .line{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+button,input{font:inherit}
+button{min-width:44px;min-height:42px;border:1px solid #bbb;border-radius:8px;background:#fff;padding:7px 10px;font-weight:800}
+button:active{transform:scale(.98)}
+input{min-height:42px;border:1px solid #bbb;border-radius:8px;padding:7px 9px;width:150px;text-align:center}
+.small{font-size:12px;color:#555;text-align:center}
+.hide{display:none}
+</style>
+
+<style id="punto-deportivo-76-corporate">
+:root{
+  --p76-orange:#ff5a00;
+  --p76-orange-2:#ff7a00;
+  --p76-black:#050505;
+  --p76-navy:#071522;
+  --p76-white:#ffffff;
+  --p76-gray:#cfd5da;
+}
+body{
+  background:
+    linear-gradient(135deg, var(--p76-black) 0%, var(--p76-navy) 52%, var(--p76-black) 100%) !important;
+  color:var(--p76-white) !important;
+}
+.container,.scoreboard,.board,.card,.panel,.main{
+  background:linear-gradient(145deg,rgba(5,5,5,.97),rgba(7,21,34,.96)) !important;
+  border-color:rgba(255,90,0,.55) !important;
+}
+header,.header,.title,.brand,.logo{
+  color:var(--p76-white) !important;
+}
+button{
+  background:var(--p76-black) !important;
+  color:var(--p76-white) !important;
+  border:2px solid var(--p76-orange) !important;
+}
+button:hover,button:active{
+  background:var(--p76-orange) !important;
+  color:var(--p76-black) !important;
+}
+.score,.points,.team-score{
+  color:var(--p76-orange) !important;
+  text-shadow:0 0 14px rgba(255,90,0,.35);
+}
+.team,.team-name{
+  background:var(--p76-navy) !important;
+  color:var(--p76-white) !important;
+  border-left:5px solid var(--p76-orange) !important;
+}
+.clock,.timer,.game-clock{
+  background:var(--p76-black) !important;
+  color:var(--p76-white) !important;
+  border:2px solid var(--p76-orange) !important;
+}
+.live,.live-badge{
+  background:var(--p76-orange) !important;
+  color:var(--p76-black) !important;
+  font-weight:900 !important;
+}
+input,select{
+  background:#0b1824 !important;
+  color:var(--p76-white) !important;
+  border:1px solid rgba(255,90,0,.65) !important;
+}
+small,.muted,.secondary{
+  color:var(--p76-gray) !important;
+}
+</style>
+
+</head>
+<body>
+<div class="board" id="board">
+  <div class="top">● EN VIVO · PUNTO DEPORTIVO 76 · BÁSQUETBOL</div>
+  <div class="row">
+    <div class="team" id="homeName">LOCAL</div>
+    <div class="center"><div class="period" id="period">Q1</div><div class="clock" id="clock">10:00</div></div>
+    <div class="team" id="awayName">VISITA</div>
+    <div class="score" id="homeScore">0</div>
+    <div></div>
+    <div class="score" id="awayScore">0</div>
+  </div>
+  <div class="bottom"><span>FALTAS LOCAL: <b id="homeFouls">0</b></span><span>FALTAS VISITA: <b id="awayFouls">0</b></span></div>
+  <div class="controls" id="controls">
+    <div class="line">
+      <input id="homeInput" value="LOCAL" aria-label="Nombre local">
+      <input id="awayInput" value="VISITA" aria-label="Nombre visita">
+      <button id="namesBtn">Nombres</button>
+    </div>
+    <div class="line">
+      <button data-team="h" data-p="1">Local +1</button><button data-team="h" data-p="2">Local +2</button><button data-team="h" data-p="3">Local +3</button>
+      <button data-team="a" data-p="1">Visita +1</button><button data-team="a" data-p="2">Visita +2</button><button data-team="a" data-p="3">Visita +3</button>
+    </div>
+    <div class="line">
+      <button id="hf">Local falta +</button><button id="af">Visita falta +</button>
+      <button id="periodBtn">Cambiar período</button><button id="startBtn">▶ Reloj</button><button id="resetClock">Reiniciar reloj</button>
+      <button id="resetAll">Reiniciar partido</button>
+    </div>
+    <div class="small">Modo operador: los controles se ocultan automáticamente en la señal cuando se usa la vista de overlay.</div>
+  </div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let hs=0,as=0,hf=0,af=0,q=1,sec=600,timer=null;
+function draw(){
+  $("homeScore").textContent=hs;$("awayScore").textContent=as;
+  $("homeFouls").textContent=hf;$("awayFouls").textContent=af;
+  $("period").textContent="Q"+q;
+  $("clock").textContent=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");
+}
+document.querySelectorAll("[data-team]").forEach(b=>b.onclick=()=>{
+  const n=Number(b.dataset.p); if(b.dataset.team==="h")hs+=n;else as+=n;draw();
+});
+$("hf").onclick=()=>{hf=Math.min(9,hf+1);draw()};
+$("af").onclick=()=>{af=Math.min(9,af+1);draw()};
+$("namesBtn").onclick=()=>{$("homeName").textContent=$("homeInput").value.trim()||"LOCAL";$("awayName").textContent=$("awayInput").value.trim()||"VISITA"};
+$("periodBtn").onclick=()=>{q=q<4?q+1:1;draw()};
+$("startBtn").onclick=()=>{
+  if(timer){clearInterval(timer);timer=null;$("startBtn").textContent="▶ Reloj";}
+  else{timer=setInterval(()=>{if(sec>0){sec--;draw()}else{clearInterval(timer);timer=null;$("startBtn").textContent="▶ Reloj"}},1000);$("startBtn").textContent="⏸ Pausa";}
+};
+$("resetClock").onclick=()=>{if(timer){clearInterval(timer);timer=null;$("startBtn").textContent="▶ Reloj"};sec=600;draw()};
+$("resetAll").onclick=()=>{if(timer){clearInterval(timer);timer=null;$("startBtn").textContent="▶ Reloj"};hs=as=hf=af=0;q=1;sec=600;draw()};
+draw();
+</script>
+</body>
+</html>
