@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Punto Deportivo 76 - Marcador</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:transparent;font-family:Arial,Helvetica,sans-serif}
+body{display:flex;align-items:flex-start;justify-content:center;padding:1.5%}
+.board{width:96%;max-width:1100px;background:rgba(5,5,8,.94);border:3px solid #ff5a00;border-radius:14px;color:#fff;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.45)}
+.top{display:flex;align-items:center;justify-content:center;background:#ff5a00;color:#050505;font-weight:900;letter-spacing:1px;font-size:clamp(13px,2vw,22px);padding:5px}
+.row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:10px 14px 6px}
+.team{text-align:center;font-weight:900;font-size:clamp(14px,2.8vw,30px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#071522;border-left:5px solid #ff5a00;padding:3px 5px}
+.score{font-size:clamp(34px,7vw,72px);font-weight:900;line-height:.9;color:#ff5a00;text-shadow:0 0 14px rgba(255,90,0,.35)}
+.center{text-align:center}
+.period{font-size:clamp(12px,1.8vw,18px);font-weight:800}
+.clock{font-size:clamp(20px,3.5vw,38px);font-weight:900;margin-top:3px;background:#050505;color:#fff;border:2px solid #ff5a00;padding:2px 7px;border-radius:6px}
+.bottom{display:flex;justify-content:center;align-items:center;gap:12px;border-top:1px solid #444;padding:5px 10px;font-size:clamp(10px,1.5vw,16px);font-weight:800}
+.controls{background:#071522;color:#fff;padding:12px;display:grid;gap:8px}
+.controls .line{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+button,input{font:inherit}
+button{min-width:44px;min-height:42px;border:2px solid #ff5a00;border-radius:8px;background:#050505;color:#fff;padding:7px 10px;font-weight:800}
+button:active{transform:scale(.98)}
+input{min-height:42px;border:1px solid rgba(255,90,0,.7);border-radius:8px;padding:7px 9px;width:150px;text-align:center;background:#0b1824;color:#fff}
+.small{font-size:12px;color:#cfd5da;text-align:center}
+.hide{display:none}
+.status{font-size:12px;text-align:center;color:#cfd5da}
+</style>
+</head>
+<body>
+<div class="board" id="board">
+  <div class="top">● EN VIVO · PUNTO DEPORTIVO 76 · BÁSQUETBOL</div>
+  <div class="row">
+    <div class="team" id="homeName">LOCAL</div>
+    <div class="center"><div class="period" id="period">Q1</div><div class="clock" id="clock">10:00</div></div>
+    <div class="team" id="awayName">VISITA</div>
+    <div class="score" id="homeScore">0</div>
+    <div></div>
+    <div class="score" id="awayScore">0</div>
+  </div>
+  <div class="bottom"><span>FALTAS LOCAL: <b id="homeFouls">0</b></span><span>FALTAS VISITA: <b id="awayFouls">0</b></span></div>
+
+  <div class="controls" id="controls">
+    <div class="line">
+      <input id="homeInput" value="LOCAL" aria-label="Nombre local">
+      <input id="awayInput" value="VISITA" aria-label="Nombre visita">
+      <button id="namesBtn">Nombres</button>
+    </div>
+    <div class="line">
+      <button data-team="h" data-p="1">Local +1</button>
+      <button data-team="h" data-p="2">Local +2</button>
+      <button data-team="h" data-p="3">Local +3</button>
+      <button data-team="a" data-p="1">Visita +1</button>
+      <button data-team="a" data-p="2">Visita +2</button>
+      <button data-team="a" data-p="3">Visita +3</button>
+    </div>
+    <div class="line">
+      <button id="hf">Local falta +</button>
+      <button id="af">Visita falta +</button>
+      <button id="periodBtn">Cambiar período</button>
+      <button id="startBtn">▶ Reloj</button>
+      <button id="resetClock">Reiniciar reloj</button>
+      <button id="resetAll">Reiniciar partido</button>
+    </div>
+    <div class="status" id="status">Conectando con Punto Deportivo 76…</div>
+    <div class="small">Control remoto: este panel escribe el marcador en Firebase y el teléfono de transmisión lo recibe en tiempo real.</div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBC17Z1q3U6lweV3NLq9zFpoDcyv27Ecg4",
+  authDomain: "puntodeportivo-76.firebaseapp.com",
+  databaseURL: "https://puntodeportivo-76-default-rtdb.firebaseio.com",
+  projectId: "puntodeportivo-76",
+  storageBucket: "puntodeportivo-76.firebasestorage.app",
+  messagingSenderId: "881911537312",
+  appId: "1:881911537312:web:9a5fb8f21ca43887c2f3c5",
+  measurementId: "G-JWJ3GWXZGC"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const gameRef = ref(db, "marcador");
+
+const params = new URLSearchParams(location.search);
+const isControl = params.get("control") === "1";
+const controls = document.getElementById("controls");
+if (!isControl) controls.style.display = "none";
+
+let state = {
+  homeName:"LOCAL", awayName:"VISITA",
+  homeScore:0, awayScore:0,
+  homeFouls:0, awayFouls:0,
+  q:1, clockSeconds:600,
+  clockRunning:false, clockEndAt:null
+};
+let lastFirebaseState = null;
+
+function currentSeconds(s=state){
+  if (s.clockRunning && s.clockEndAt) {
+    return Math.max(0, Math.ceil((s.clockEndAt - Date.now())/1000));
+  }
+  return Math.max(0, Number(s.clockSeconds)||0);
+}
+
+function draw(){
+  document.getElementById("homeName").textContent = state.homeName || "LOCAL";
+  document.getElementById("awayName").textContent = state.awayName || "VISITA";
+  document.getElementById("homeScore").textContent = state.homeScore || 0;
+  document.getElementById("awayScore").textContent = state.awayScore || 0;
+  document.getElementById("homeFouls").textContent = state.homeFouls || 0;
+  document.getElementById("awayFouls").textContent = state.awayFouls || 0;
+  document.getElementById("period").textContent = "Q" + (state.q || 1);
+  const sec = currentSeconds();
+  document.getElementById("clock").textContent =
+    String(Math.floor(sec/60)).padStart(2,"0") + ":" + String(sec%60).padStart(2,"0");
+  if (isControl) {
+    document.getElementById("homeInput").value = state.homeName || "LOCAL";
+    document.getElementById("awayInput").value = state.awayName || "VISITA";
+    document.getElementById("startBtn").textContent = state.clockRunning ? "⏸ Pausa" : "▶ Reloj";
+  }
+}
+
+function cleanState(s){
+  return {
+    homeName:s.homeName || "LOCAL",
+    awayName:s.awayName || "VISITA",
+    homeScore:Number(s.homeScore)||0,
+    awayScore:Number(s.awayScore)||0,
+    homeFouls:Number(s.homeFouls)||0,
+    awayFouls:Number(s.awayFouls)||0,
+    q:Math.min(4,Math.max(1,Number(s.q)||1)),
+    clockSeconds:Math.max(0,Number(s.clockSeconds)||0),
+    clockRunning:Boolean(s.clockRunning),
+    clockEndAt:s.clockEndAt ? Number(s.clockEndAt) : null
+  };
+}
+
+async function save(next){
+  state = cleanState(next);
+  draw();
+  await set(gameRef, state);
+}
+
+onValue(gameRef, (snap)=>{
+  if (snap.exists()) {
+    state = cleanState(snap.val());
+    lastFirebaseState = state;
+    if (state.clockRunning && currentSeconds(state) <= 0) {
+      state.clockRunning = false;
+      state.clockSeconds = 0;
+      state.clockEndAt = null;
+      if (isControl) set(gameRef, state);
+    }
+  } else if (isControl) {
+    set(gameRef, state);
+  }
+  draw();
+  document.getElementById("status").textContent = "● Marcador conectado";
+}, (err)=>{
+  document.getElementById("status").textContent = "Error de conexión con Firebase";
+  console.error(err);
+});
+
+setInterval(()=>{
+  draw();
+  if (state.clockRunning && currentSeconds(state) <= 0 && isControl) {
+    state.clockRunning=false; state.clockSeconds=0; state.clockEndAt=null;
+    set(gameRef,state);
+  }
+}, 250);
+
+if (isControl) {
+  document.querySelectorAll("[data-team]").forEach(b=>b.onclick=()=>{
+    const n=Number(b.dataset.p);
+    const next={...state};
+    if (b.dataset.team==="h") next.homeScore += n;
+    else next.awayScore += n;
+    save(next);
+  });
+
+  document.getElementById("hf").onclick=()=>save({...state,homeFouls:Math.min(9,state.homeFouls+1)});
+  document.getElementById("af").onclick=()=>save({...state,awayFouls:Math.min(9,state.awayFouls+1)});
+
+  document.getElementById("namesBtn").onclick=()=>save({
+    ...state,
+    homeName:document.getElementById("homeInput").value.trim() || "LOCAL",
+    awayName:document.getElementById("awayInput").value.trim() || "VISITA"
+  });
+
+  document.getElementById("periodBtn").onclick=()=>{
+    const nextQ=state.q<4 ? state.q+1 : 1;
+    save({...state,q:nextQ});
+  };
+
+  document.getElementById("startBtn").onclick=()=>{
+    if (state.clockRunning) {
+      const remaining=currentSeconds(state);
+      save({...state,clockRunning:false,clockSeconds:remaining,clockEndAt:null});
+    } else {
+      const remaining=Math.max(0,Number(state.clockSeconds)||0);
+      if (remaining>0) {
+        save({...state,clockRunning:true,clockSeconds:remaining,clockEndAt:Date.now()+remaining*1000});
+      }
+    }
+  };
+
+  document.getElementById("resetClock").onclick=()=>{
+    save({...state,clockRunning:false,clockSeconds:600,clockEndAt:null});
+  };
+
+  document.getElementById("resetAll").onclick=()=>{
+    save({
+      homeName:"LOCAL",awayName:"VISITA",
+      homeScore:0,awayScore:0,homeFouls:0,awayFouls:0,
+      q:1,clockSeconds:600,clockRunning:false,clockEndAt:null
+    });
+  };
+}
+draw();
+</script>
+</body>
+</html>
