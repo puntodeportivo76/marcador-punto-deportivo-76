@@ -67,7 +67,7 @@ homeInput.onfocus=()=>editH=true;homeInput.oninput=()=>editH=true;awayInput.onfo
 document.querySelectorAll("[data-team]").forEach(b=>b.onclick=()=>save({...state,[b.dataset.team==="h"?"homeScore":"awayScore"]:state[b.dataset.team==="h"?"homeScore":"awayScore"]+Number(b.dataset.p)}));
 namesBtn.onclick=()=>{editH=editA=false;save({...state,homeName:homeInput.value.trim()||"LOCAL",awayName:awayInput.value.trim()||"VISITA"})};
 setClock.onclick=()=>{let m=clockInput.value.match(/^(\d{1,3}):([0-5]\d)$/);if(!m){status.textContent="Usa MM:SS";return}editC=false;save({...state,clockSeconds:Number(m[1])*60+Number(m[2]),clockRunning:false,clockEndAt:null})};
-hf.onclick=()=>save({...state,homeFouls:Math.min(9,state.homeFouls+1)});af.onclick=()=>save({...state,awayFouls:Math.min(9,state.awayFouls+1)});
+
 periodBtn.onclick=()=>save({...state,q:state.q<4?state.q+1:1});
 startBtn.onclick=()=>{if(state.clockRunning)save({...state,clockRunning:false,clockSeconds:sec(),clockEndAt:null});else if(sec()>0)save({...state,clockRunning:true,clockEndAt:Date.now()+sec()*1000})};
 resetClock.onclick=()=>{editC=false;save({...state,clockSeconds:600,clockRunning:false,clockEndAt:null})};
