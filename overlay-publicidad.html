@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Punto Deportivo 76 · Overlay auspiciadores</title>
+<style>
+:root{--orange:#ff6500;--black:#080808;--white:#fff}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:transparent;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
+#stage{position:absolute;left:3%;right:3%;bottom:4%;height:clamp(70px,15vh,145px);display:flex;align-items:stretch;opacity:0;transform:translateY(12px);transition:opacity .35s,transform .35s;pointer-events:none}
+#stage.show{opacity:1;transform:translateY(0)}
+.brand{background:var(--black);border:3px solid var(--orange);border-right:0;color:#fff;display:flex;align-items:center;justify-content:center;padding:10px 18px;min-width:190px;max-width:24%;font-weight:900;font-style:italic;font-size:clamp(14px,2vw,28px);line-height:1.05}
+.brand span{color:var(--orange);display:block}
+.ad{flex:1;min-width:0;background:rgba(7,7,7,.96);border:3px solid var(--orange);display:flex;align-items:center;gap:clamp(10px,2vw,26px);padding:10px clamp(14px,2.6vw,34px);color:white;box-shadow:0 4px 18px #0008}
+.logoBox{height:100%;width:clamp(60px,10vw,130px);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.logoBox img{max-width:100%;max-height:100%;object-fit:contain}
+.copy{min-width:0;flex:1}
+.kicker{color:var(--orange);font-size:clamp(10px,1.2vw,16px);font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.name{font-size:clamp(18px,3vw,40px);font-weight:900;line-height:1.02;text-transform:uppercase;overflow-wrap:anywhere}
+.desc{font-size:clamp(11px,1.4vw,19px);margin-top:5px;color:#eee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{background:var(--orange);color:#111;font-weight:900;text-transform:uppercase;padding:10px 12px;font-size:clamp(10px,1.3vw,17px);align-self:center;white-space:nowrap}
+#status{position:absolute;top:4px;left:4px;color:#fff;background:#0009;font:12px Arial;padding:3px 6px;display:none}
+@media(max-width:600px){.brand{min-width:95px;padding:7px;font-size:13px}.ad{padding:7px;gap:8px}.tag{display:none}.desc{max-width:100%}}
+</style>
+</head>
+<body>
+<div id="stage" aria-live="polite">
+  <div class="brand">PUNTO <span>DEPORTIVO 76</span></div>
+  <div class="ad">
+    <div class="logoBox" id="logoBox"></div>
+    <div class="copy"><div class="kicker" id="kicker">AUSPICIADOR OFICIAL</div><div class="name" id="name">TU MARCA AQUÍ</div><div class="desc" id="desc">Publicidad durante la transmisión</div></div>
+    <div class="tag" id="tag">APÓYANOS</div>
+  </div>
+</div>
+<div id="status">Conectando…</div>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {getDatabase,ref,onValue} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+import {getAuth,signInAnonymously} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+const firebaseConfig={
+ apiKey:"AIzaSyBC17Z1q3U6lweV3NLq9zFpoDcyv27Ecg4",
+ authDomain:"puntodeportivo-76.firebaseapp.com",
+ databaseURL:"https://puntodeportivo-76-default-rtdb.firebaseio.com",
+ projectId:"puntodeportivo-76",storageBucket:"puntodeportivo-76.firebasestorage.app",
+ messagingSenderId:"881911537312",appId:"1:881911537312:web:9a5fb8f21ca43887c2f3c5"
+};
+const app=initializeApp(firebaseConfig),db=getDatabase(app),auth=getAuth(app);
+const stage=document.getElementById("stage");
+const $=id=>document.getElementById(id);
+let timer=null,items=[],index=0;
+function draw(item){
+ $("kicker").textContent=item.kicker||"AUSPICIADOR OFICIAL";
+ $("name").textContent=item.name||"AUSPICIADOR";
+ $("desc").textContent=item.desc||"";
+ $("tag").textContent=item.tag||"APÓYANOS";
+ $("logoBox").replaceChildren();
+ if(item.logo){const img=document.createElement("img");img.src=item.logo;img.alt="Logo "+(item.name||"auspiciador");img.onerror=()=>img.remove();$("logoBox").appendChild(img)}
+ stage.classList.toggle("show",item.visible!==false);
+}
+function cycle(data){
+ if(timer)clearInterval(timer);
+ items=(data&&Array.isArray(data.items)?data.items:[]).filter(x=>x&&x.name);
+ index=0;
+ if(!data||data.enabled!==true||!items.length){stage.classList.remove("show");return}
+ const seconds=Math.max(5,Math.min(60,Number(data.seconds)||10));
+ draw(items[0]);timer=setInterval(()=>{index=(index+1)%items.length;draw(items[index])},seconds*1000);
+}
+try{
+ await signInAnonymously(auth);
+ onValue(ref(db,"sponsorOverlay"),snap=>cycle(snap.val()),err=>{stage.classList.remove("show");$("status").style.display="block";$("status").textContent="Sin acceso a sponsorOverlay: revisa reglas de Firebase";});
+}catch(e){$("status").style.display="block";$("status").textContent="No se pudo conectar: activa acceso anónimo en Firebase Authentication";}
+</script>
+</body></html>

@@ -1,0 +1,36 @@
+PUNTO DEPORTIVO 76 — OVERLAY PUBLICITARIO ROTATIVO
+====================================================
+
+Archivos:
+- overlay-publicidad.html : cargar como fuente web en Larix.
+- control-publicidad.html : abrir en el segundo celular para administrar hasta 3 auspiciadores.
+
+Firebase usado por el proyecto existente:
+- Project ID: puntodeportivo-76
+- Ruta NUEVA y separada: sponsorOverlay
+- No se modifica la ruta del marcador "marcador" ni la del overlay de jugador "playerOverlay".
+
+IMPORTANTE ANTES DE USAR EN VIVO
+1. Subir ambos HTML al repositorio GitHub Pages:
+   https://github.com/puntodeportivo76/marcador-punto-deportivo-76
+   Recomendación: crear carpeta nueva `publicidad/` y subir ahí los dos archivos. No reemplazar index.html.
+2. Habilitar Anonymous sign-in en Firebase Authentication para que Larix pueda leer el overlay.
+3. En Realtime Database Rules, agregar permisos SOLO para la ruta `sponsorOverlay` sin reemplazar las reglas existentes. Como punto de partida (ajustar a tus reglas actuales):
+   "sponsorOverlay": {
+     ".read": "auth != null",
+     ".write": "auth != null"
+   }
+   Esto permite a usuarios autenticados escribir. Para proteger mejor el control, limita escritura a una cuenta/rol administrativo mediante reglas adecuadas antes de producción. No abras la base de datos completa.
+4. Probar que el control inicia sesión con una cuenta existente de Firebase Authentication y que la fuente web recibe el cambio. Si tus reglas actuales exigen email verificado/rol específico, ajustarlas con cuidado.
+5. URL de control (ejemplo):
+   https://puntodeportivo76.github.io/marcador-punto-deportivo-76/publicidad/control-publicidad.html
+   URL de overlay para Larix (ejemplo):
+   https://puntodeportivo76.github.io/marcador-punto-deportivo-76/publicidad/overlay-publicidad.html
+6. En Larix, agrega una fuente Web Widget independiente; no cambies ni elimines la fuente del marcador. Configura transparencia, posición inferior y ancho suficiente. Oculta el overlay desde el segundo teléfono cuando quieras.
+
+Logos:
+- Usa URL HTTPS pública directa a un archivo de imagen (PNG/SVG/JPG). Evita enlaces privados de Google Drive.
+- Los nombres y descripciones pueden escribirse desde el teléfono de control.
+
+NOTA DE SEGURIDAD:
+El HTML de control incluye configuración pública del proyecto Firebase (como los archivos previos). La seguridad real depende de Authentication y Database Rules. No publiques reglas abiertas ni sustituyas todas las reglas existentes por el fragmento de ejemplo.
