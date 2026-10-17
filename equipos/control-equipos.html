@@ -4,18 +4,18 @@
 <style>
 :root{--o:#ff6500;--bg:#101114;--p:#1d1f24;--line:#393b42;--muted:#aeb3bd}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f7f7;font:14px Arial,sans-serif;padding:10px}
-.wrap{max-width:650px;margin:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:2px solid var(--o);padding:5px 0 10px;margin-bottom:9px}
+.wrap{max-width:590px;margin:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:2px solid var(--o);padding:5px 0 10px;margin-bottom:9px}
 h1{margin:0;font-size:20px}h1 span{color:var(--o)}.head p,.small{color:var(--muted);font-size:11px;line-height:1.35;margin:4px 0 0}
 .card{background:var(--p);border:1px solid var(--line);border-radius:11px;padding:11px;margin:9px 0}h2{font-size:16px;margin:0 0 9px}
 label.fieldlabel{display:block;font-size:10px;color:#ff8a3d;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
 input[type=text],input[type=email],input[type=password],select{width:100%;min-width:0;background:#0d0e10;color:#fff;border:1px solid #4b4d55;border-radius:7px;padding:8px 9px;font:inherit;height:36px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}.teams{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.team{min-width:0;background:#15161a;border:1px solid #34363d;border-radius:8px;padding:8px}.teamtitle{font-size:11px;font-weight:900;margin-bottom:6px}
+.team{min-width:0;background:linear-gradient(145deg,#171a20,#111318);border:1px solid #343943;border-radius:9px;padding:8px;box-shadow:0 5px 16px #0003}.teamtitle{font-size:11px;font-weight:900;margin-bottom:6px}
 .teamline{display:grid;grid-template-columns:minmax(0,1fr) 32px;gap:5px;align-items:center}
 .logo-tools{display:flex;align-items:center;gap:5px;margin-top:6px}.preview,.placeholder{width:42px;height:42px;object-fit:contain;background:#f5f5f5;border-radius:50%;padding:3px;border:2px solid var(--o)}
 .placeholder{display:flex;align-items:center;justify-content:center;background:#191b20;color:#9ca2ad;border:1px dashed #656873;font-size:8px;text-align:center}
 input[type=file]{display:none}button{border:0;border-radius:8px;padding:9px 14px;font-weight:900;cursor:pointer;background:var(--o);color:#111;font-size:13px}
-button.secondary{background:#363941;color:#fff}.iconbtn{width:32px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:19px}.remove{width:23px;height:23px;border-radius:50%;padding:0;background:#762b22;color:white;font-size:16px}
+button.secondary{background:#363941;color:#fff}.iconbtn{width:32px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:19px;border:1px solid #ff9a50;box-shadow:0 0 8px #ff650022}.remove{width:23px;height:23px;border-radius:50%;padding:0;background:#762b22;color:white;font-size:16px}
 .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.save{flex:1;min-width:110px}.switchwrap{display:flex;align-items:center;gap:8px;background:#111216;border:1px solid #3d4048;border-radius:9px;padding:6px 8px}
 .switchlabel{font-size:11px;font-weight:900;min-width:80px}.switch{position:relative;display:inline-block;width:44px;height:24px;flex:none;margin:0}
 .switch input{opacity:0;width:0;height:0}.slider{position:absolute;cursor:pointer;inset:0;background:#6e3030;transition:.2s;border-radius:20px}
@@ -35,11 +35,11 @@ button.secondary{background:#363941;color:#fff}.iconbtn{width:32px;height:32px;p
 <div><label class="fieldlabel" for="category">Género</label><select id="category"><option value="Femenina">Femenino</option><option value="Masculina">Masculino</option><option value="Mixta">Mixto</option></select></div></div>
 <div style="margin-bottom:9px"><label class="fieldlabel" for="eventName">Título superior (opcional)</label><input id="eventName" type="text" maxlength="45" placeholder="Ej.: FINAL · COPA P76"></div>
 <div class="teams">
-<div class="team"><div class="teamtitle">EQUIPO LOCAL</div><div class="teamline"><input id="homeName" type="text" maxlength="40" placeholder="Nombre del equipo" aria-label="Nombre equipo local"><button id="homeUpload" class="iconbtn" type="button" aria-label="Subir escudo local" title="Subir escudo">＋</button></div>
+<div class="team"><div class="teamtitle">EQUIPO LOCAL</div><div class="teamline"><input id="homeName" type="text" maxlength="40" placeholder="Nombre del equipo" aria-label="Nombre equipo local"><button id="homeUpload" class="iconbtn" type="button" aria-label="Subir escudo local" title="Seleccionar escudo">🛡</button></div>
 <div class="logo-tools"><div id="homePlaceholder" class="placeholder">SIN<br>ESCUDO</div><img id="homePreview" class="preview hidden" alt="Escudo local"><button id="homeClear" class="remove hidden" type="button" aria-label="Quitar escudo local" title="Quitar escudo">×</button><input id="homeFile" type="file" accept="image/*"></div></div>
-<div class="team"><div class="teamtitle">EQUIPO VISITANTE</div><div class="teamline"><input id="awayName" type="text" maxlength="40" placeholder="Nombre del equipo" aria-label="Nombre equipo visitante"><button id="awayUpload" class="iconbtn" type="button" aria-label="Subir escudo visitante" title="Subir escudo">＋</button></div>
+<div class="team"><div class="teamtitle">EQUIPO VISITANTE</div><div class="teamline"><input id="awayName" type="text" maxlength="40" placeholder="Nombre del equipo" aria-label="Nombre equipo visitante"><button id="awayUpload" class="iconbtn" type="button" aria-label="Subir escudo visitante" title="Seleccionar escudo">🛡</button></div>
 <div class="logo-tools"><div id="awayPlaceholder" class="placeholder">SIN<br>ESCUDO</div><img id="awayPreview" class="preview hidden" alt="Escudo visitante"><button id="awayClear" class="remove hidden" type="button" aria-label="Quitar escudo visitante" title="Quitar escudo">×</button><input id="awayFile" type="file" accept="image/*"></div></div>
-</div><p class="small">Sube los escudos local y visitante desde la galería. El título es opcional; categoría y género se mostrarán en pantalla.</p>
+</div><p class="small">Selecciona género y categoría; sube los escudos de ambos equipos. El título superior es opcional. Pulsa Guardar para aplicar los cambios.</p>
 </section><section class="card"><div class="actions"><button id="save" class="save" type="button">Guardar</button>
 <div class="switchwrap"><span id="switchText" class="switchlabel">OFF · Apagado</span><label class="switch" aria-label="Mostrar u ocultar overlay"><input id="visibleSwitch" type="checkbox"><span class="slider"></span></label></div></div>
 <div id="status" class="status" role="status">Conectando…</div></section></section></main>
