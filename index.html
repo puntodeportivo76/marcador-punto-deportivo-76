@@ -879,7 +879,15 @@ if(control){
 }
 // Keep the control preview usable while hiding the broadcast overlay.
 onValue(ref(db,"marcador/scoreboardVisible"),snap=>{
- document.getElementById("scoreboard").style.visibility=(!control && snap.val()===false)?"hidden":"visible";
+ const hidden=!control && snap.val()===false;
+ const board=document.getElementById("scoreboard");
+ board.style.setProperty("display",hidden?"none":"block","important");
+ if(!control){
+  for(const element of [document.documentElement,document.body]){
+   element.style.setProperty("background","transparent","important");
+   element.style.setProperty("background-image","none","important");
+  }
+ }
 });
 if(control){
  const specs=[
