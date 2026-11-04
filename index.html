@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script id="p76-overlay-mode">
+if(new URLSearchParams(location.search).get("view")==="scoreboard")document.documentElement.classList.add("p76OverlayMode");
+</script>
+<style id="p76-transparent-overlay">
+html.p76OverlayMode,html.p76OverlayMode body{background:transparent!important;background-image:none!important}
+html.p76OverlayMode body{overflow:hidden}
+html.p76OverlayMode #controls{display:none!important}
+</style>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Punto Deportivo 76 - Marcador</title>
