@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Final del partido | Punto Deportivo 76</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:transparent;font-family:Arial,sans-serif;color:white}
+main{width:min(92vw,1100px);text-align:center;background:linear-gradient(145deg,#102744,#080d16 70%);border-top:6px solid #ff6500;border-radius:12px;overflow:hidden}
+header{padding:2vw 1vw 0;font-size:clamp(15px,4.1vw,48px);font-weight:900;letter-spacing:.08em}
+.result{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:2vw;align-items:center;padding:2.5vw 3vw}
+.team{display:grid;justify-items:center;gap:1vw}
+.crest{width:clamp(36px,14vw,160px);aspect-ratio:1;display:grid;place-items:center;background:#fff;border-radius:12%;color:#071d38;font-size:clamp(12px,4vw,45px);font-weight:900}
+.crest>*{grid-area:1/1}
+img{width:100%;height:100%;object-fit:contain;padding:8%;background:white;border-radius:12%}
+.name{font-size:clamp(11px,3.3vw,36px);font-weight:800;overflow-wrap:anywhere;max-width:100%}
+.score{font-size:clamp(24px,9vw,106px);font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dash{color:#ff6500}
+footer{background:#ff6500;color:#111;padding:.75em;font-size:clamp(9px,1.8vw,19px);font-weight:900;letter-spacing:.12em}
+</style>
+<main hidden>
+<header>FINAL DEL PARTIDO</header>
+<div class="result">
+<div class="team"><div class="crest"><span id="homeInitial"></span><img id="homeLogo" alt="" hidden></div><div class="name" id="homeName"></div></div>
+<div class="score"><span id="homeScore"></span><span class="dash"> – </span><span id="awayScore"></span></div>
+<div class="team"><div class="crest"><span id="awayInitial"></span><img id="awayLogo" alt="" hidden></div><div class="name" id="awayName"></div></div>
+</div>
+<footer>PUNTO DEPORTIVO 76 · BÁSQUETBOL</footer>
+</main>
+<script type="module">
+const byId = id => document.getElementById(id);
+for (const side of ["home", "away"]) {
+  const image = byId(side + "Logo");
+  image.onload = () => { image.hidden = false; };
+  image.onerror = () => { image.hidden = true; };
+}
+function render(game) {
+  if (!game) {
+    document.querySelector("main").hidden = true;
+    return;
+  }
+  for (const [side, fallback] of [["home", "Local"], ["away", "Visita"]]) {
+    const name = String(game[side + "Name"] || "").trim() || fallback;
+    byId(side + "Name").textContent = name;
+    byId(side + "Initial").textContent = name.slice(0, 2).toUpperCase();
+    byId(side + "Score").textContent = Math.max(0, Number(game[side + "Score"]) || 0);
+    const image = byId(side + "Logo");
+    const logo = typeof game[side + "Logo"] === "string" ? game[side + "Logo"].trim() : "";
+    if (logo !== (image.getAttribute("src") || "")) {
+      image.hidden = true;
+      if (logo) image.src = logo;
+      else image.removeAttribute("src");
+    }
+  }
+  document.querySelector("main").hidden = false;
+}
+
+if (new URLSearchParams(location.search).get("demo") === "1") {
+  render({homeName:"RDS", awayName:"Visita", homeScore:68, awayScore:54});
+} else {
+  const sdk = "https://www.gstatic.com/firebasejs/12.19.0/";
+  try {
+    const [{initializeApp}, {getDatabase, ref, onValue}] = await Promise.all([
+      import(sdk + "firebase-app.js"),
+      import(sdk + "firebase-database.js")
+    ]);
+    const app = initializeApp({databaseURL:"https://puntodeportivo-76-default-rtdb.firebaseio.com"});
+    onValue(ref(getDatabase(app), "marcador/finalOverlay"), snapshot => {
+      const result = snapshot.val();
+      render(result?.visible === true ? result : null);
+    }, error => {
+      render(null);
+      console.error("No se pudo leer el marcador.", error);
+    });
+  } catch (error) {
+    console.error("No se pudo conectar al marcador.", error);
+  }
+}
+</script>
+</html>
