@@ -666,7 +666,10 @@ button{cursor:pointer}
   #controls .timeLineControl #ci{width:72px !important;min-width:72px !important;max-width:72px !important;}
 }
 </style>
-</head>
+<style id="extras-overlay-controls">
+.extrasLink{display:flex;align-items:center;justify-content:center;text-decoration:none;text-align:center;min-height:54px;color:white;box-sizing:border-box}
+.overlayRow{display:flex!important;align-items:center;justify-content:space-between;gap:12px;padding:12px 8px;margin:0!important;border-bottom:1px solid #344a5c;color:#fff;font-size:16px;font-weight:bold;cursor:pointer}.overlayRow:last-of-type{border:0}.overlayRight{display:flex;gap:10px;align-items:center}.overlayRight small{font-size:11px;color:#c5d0d8}.overlaySwitch{position:relative;width:52px;height:29px;flex-shrink:0;display:inline-block}.overlaySwitch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;z-index:1;cursor:pointer}.overlayTrack{position:absolute;inset:0;background:#66717d;border-radius:30px;transition:.2s}.overlayTrack:before{content:"";position:absolute;width:21px;height:21px;left:4px;top:4px;border-radius:50%;background:white;transition:.2s}.overlaySwitch input:checked+.overlayTrack{background:#20a45a}.overlaySwitch input:checked+.overlayTrack:before{transform:translateX(23px)}.overlaySwitch input:focus-visible+.overlayTrack{outline:3px solid #ffab62;outline-offset:3px}.overlaySwitch input:disabled+.overlayTrack{opacity:.5}
+</style></head>
 <body>
 <section id="scoreboard">
 <div class="board">
@@ -790,13 +793,14 @@ button{cursor:pointer}
     <div class="sectionTitle">6. PERÍODO Y REINICIOS</div>
     <div class="remoteActions">
       <button id="pb" class="action periodBtn">CAMBIAR PERÍODO</button>
-      <button id="finalToggle" class="action" type="button" disabled>Mostrar resultado final</button>
-      <span id="finalStatus" role="status"></span>
+
       <button id="rc" class="action resetClockBtn">↻ REINICIAR RELOJ</button>
       <button id="ra" class="action resetGameBtn">↶ REINICIAR PARTIDO</button>
     </div>
   </div>
 
+<div class="remoteSection"><div class="sectionTitle">7. CONFIGURACIONES EXTRAS</div><div class="nameGrid"><a class="action extrasLink" href="control-equipos.html">Control de Equipos</a><a class="action extrasLink" href="control-publicidad.html">Control de Publicidad</a></div></div>
+<div class="remoteSection"><div class="sectionTitle">8. CONTROL DE OVERLAY</div><label class="overlayRow" for="overlayScore"><span>Marcador</span><span class="overlayRight"><small id="overlayScoreState">Conectando…</small><span class="overlaySwitch"><input type="checkbox" role="switch" id="overlayScore" disabled><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayTeams"><span>Equipos</span><span class="overlayRight"><small id="overlayTeamsState">Conectando…</small><span class="overlaySwitch"><input type="checkbox" role="switch" id="overlayTeams" disabled><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayAds"><span>Publicidad</span><span class="overlayRight"><small id="overlayAdsState">Conectando…</small><span class="overlaySwitch"><input type="checkbox" role="switch" id="overlayAds" disabled><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayFinal"><span>Final Partido</span><span class="overlayRight"><small id="overlayFinalState">Conectando…</small><span class="overlaySwitch"><input type="checkbox" role="switch" id="overlayFinal" disabled><span class="overlayTrack"></span></span></span></label><p id="overlayStatus" role="status" style="font-size:12px;color:white;margin:10px 0 0">Verde: muestra · Gris: oculta</p></div>
   <div class="footer">CONTROL REMOTO • PUNTO DEPORTIVO 76</div>
   </div>
 </section>
@@ -836,7 +840,7 @@ function draw(){
  $("period").textContent=(state.q==="EX"?"EX":"P"+(state.q||1));$("clock").textContent=fmt(sec());
  if(control){const hn=state.homeName||"LOCAL", an=state.awayName||"VISITA";$("hTitle").textContent=hn;$("aTitle").textContent=an;$("hFoulsTitle").textContent=hn+" • FALTAS";$("aFoulsTitle").textContent=an+" • FALTAS";$("hColorLabel").textContent="Color "+hn;$("aColorLabel").textContent="Color "+an;$("hNameLabel").textContent=hn;$("aNameLabel").textContent=an;if(!editH)$("hi").value=hn;if(!editA)$("ai").value=an;if(!editC)$("ci").value=fmt(sec());$("hc").value=state.homeColor||"#ff6500";$("ac").value=state.awayColor||"#13aef5";$("sb").textContent=state.clockRunning?"❚❚":"▶"}
 }
-async function save(x){if(!authUser){if(control)authMessage.textContent="Inicia sesión para modificar el marcador.";return;}state={...state,...x};draw();try{const {finalOverlay, ...scoreboard} = state; await update(gameRef,scoreboard)}catch(e){if(control)authMessage.textContent="Firebase rechazó el cambio. Revisa las reglas de seguridad.";console.error(e)}}
+async function save(x){if(!authUser){if(control)authMessage.textContent="Inicia sesión para modificar el marcador.";return;}state={...state,...x};draw();try{const {finalOverlay, scoreboardVisible, ...scoreboard} = state; await update(gameRef,scoreboard)}catch(e){if(control)authMessage.textContent="Firebase rechazó el cambio. Revisa las reglas de seguridad.";console.error(e)}}
 onValue(gameRef,s=>{if(s.exists())state={...state,...s.val()};else if(authUser)set(gameRef,state);draw()},e=>{console.error(e);if(control)authMessage.textContent="No se pudo leer el marcador. Revisa las reglas de lectura."});
 function normalizePeriod(q){
   if(q==="EX") return "EX";
@@ -864,61 +868,44 @@ if(control){
  $("rc").onclick=()=>{editC=false;save({...state,clockSeconds:600,clockRunning:false,clockEndAt:null});};
  $("ra").onclick=()=>{editH=editA=editC=false;save({homeName:"LOCAL",awayName:"VISITA",homeScore:0,awayScore:0,homeFouls:0,awayFouls:0,homeTimeouts:0,awayTimeouts:0,possession:"none",homeLogo:"",awayLogo:"",homeColor:"#ff6500",awayColor:"#13aef5",q:1,clockSeconds:600,clockRunning:false,clockEndAt:null});};
 }
-if (control) {
- const button = $("finalToggle");
- const status = $("finalStatus");
- const finalRef = ref(db,"marcador/finalOverlay");
- let visible = false;
- let ready = false;
- let pending = false;
- function syncFinalButton() {
-   button.disabled = !ready || pending;
-   button.textContent = visible ? "Ocultar resultado final" : "Mostrar resultado final";
+// Keep the control preview usable while hiding the broadcast overlay.
+onValue(ref(db,"marcador/scoreboardVisible"),snap=>{
+ document.getElementById("scoreboard").style.visibility=(!control && snap.val()===false)?"hidden":"visible";
+});
+if(control){
+ const specs=[
+  ["Score","marcador/scoreboardVisible",true],
+  ["Teams","teamIntroOverlay/visible",false],
+  ["Ads","sponsorOverlay/enabled",false],
+  ["Final","marcador/finalOverlay/visible",false]
+ ];
+ for(const [key,path,defaultOn] of specs){
+  const input=$("overlay"+key),label=$("overlay"+key+"State"),target=ref(db,path);
+  let ready=false,pending=false,current=defaultOn;
+  function sync(){input.checked=current;input.disabled=!ready||pending;label.textContent=current?"Visible":"Oculto";}
+  onValue(target,snap=>{current=snap.exists()?snap.val()===true:defaultOn;ready=true;sync()},()=>{ready=false;sync();label.textContent="Sin conexión"});
+  input.addEventListener("change",async()=>{
+   if(!authUser||!ready||pending){sync();return}
+   const wanted=input.checked;pending=true;input.disabled=true;
+   $("overlayStatus").textContent="Guardando…";
+   try{
+    if(key==="Final" && wanted){
+     const [gameSnapshot,teamsSnapshot]=await Promise.all([get(gameRef),get(ref(db,"teamIntroOverlay"))]);
+     const game=gameSnapshot.val(),teams=teamsSnapshot.val()||{};
+     if(!game)throw new Error("Marcador vacío");
+     await set(ref(db,"marcador/finalOverlay"),{
+      visible:true,homeName:game.homeName||"LOCAL",awayName:game.awayName||"VISITA",
+      homeScore:game.homeScore??0,awayScore:game.awayScore??0,
+      homeLogo:teams.homeLogo||game.homeLogo||"",awayLogo:teams.awayLogo||game.awayLogo||""
+     });
+    }else{await set(target,wanted)}
+    current=wanted;$("overlayStatus").textContent="Guardado · Verde: muestra · Gris: oculta";
+   }catch(error){$("overlayStatus").textContent="No se pudo cambiar el overlay. Revisa conexión y permisos.";console.error(error)}
+   finally{pending=false;sync()}
+  });
  }
- onValue(finalRef, snapshot => {
-   visible = snapshot.val()?.visible === true;
-   ready = true;
-   syncFinalButton();
- }, () => {
-   ready = false;
-   status.textContent = "No se pudo leer el estado del resultado final.";
-   syncFinalButton();
- });
- button.onclick = async () => {
-   if (!authUser || !ready || pending) return;
-   pending = true;
-   syncFinalButton();
-   status.textContent = "";
-   try {
-     if (visible) {
-       await set(finalRef, {visible:false});
-     } else {
-       const [gameSnapshot, teamsSnapshot] = await Promise.all([
-         get(gameRef),
-         get(ref(db,"teamIntroOverlay"))
-       ]);
-       const game = gameSnapshot.val();
-       const teams = teamsSnapshot.val() || {};
-       if (!game) throw new Error("Marcador vacío");
-       const {homeName, awayName, homeScore, awayScore, homeLogo, awayLogo} = game;
-       await set(finalRef, {
-         visible:true,
-         homeName:homeName ?? "LOCAL", awayName:awayName ?? "VISITA",
-         homeScore:homeScore ?? 0, awayScore:awayScore ?? 0,
-         homeLogo:teams.homeLogo || homeLogo || "",
-         awayLogo:teams.awayLogo || awayLogo || ""
-       });
-     }
-   } catch (error) {
-     status.textContent = "No se pudo cambiar el resultado final. Intenta de nuevo.";
-     console.error(error);
-   } finally {
-     pending = false;
-     syncFinalButton();
-   }
- };
 }
-setInterval(()=>{draw();if(state.clockRunning&&sec()===0)save({...state,clockRunning:false,clockSeconds:0,clockEndAt:null})},250);draw();
+setInterval(()=>{draw();if(control&&state.clockRunning&&sec()===0)save({...state,clockRunning:false,clockSeconds:0,clockEndAt:null})},250);draw();
 </script>
 
 <style id="LOCAL-VISITA-FINAL-VISIBLE">
