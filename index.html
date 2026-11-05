@@ -728,14 +728,14 @@ button{cursor:pointer}
     <div class="nameGrid">
       <div class="remoteCard">
         <label id="hNameLabel">LOCAL</label>
-        <input id="hi" value="LOCAL" maxlength="18">
+        <input id="hi" value="LOCAL" readonly aria-label="Nombre local, administrado en Control de Equipos">
       </div>
       <div class="remoteCard">
         <label id="aNameLabel">VISITA</label>
-        <input id="ai" value="VISITA" maxlength="18">
+        <input id="ai" value="VISITA" readonly aria-label="Nombre visitante, administrado en Control de Equipos">
       </div>
     </div>
-    <button id="sn" class="action fullBtn">GUARDAR NOMBRES</button>
+    <p class="p76NameHint">Los nombres se administran exclusivamente en Control de Equipos.</p>
   </div>
 
   <div class="remoteSection">
@@ -836,7 +836,7 @@ onAuthStateChanged(auth,user=>{
   authUser=user;
   if(control){document.getElementById("remotePanel").style.display=user?"block":"none";document.getElementById("loginBtn").style.display=user?"none":"block";document.getElementById("logoutBtn").style.display=user?"block":"none";document.getElementById("authEmail").style.display=user?"none":"block";document.getElementById("authPassword").style.display=user?"none":"block";if(user)authMessage.textContent="Sesión iniciada. Control remoto habilitado.";}
 });
-let state={homeName:"LOCAL",awayName:"VISITA",homeScore:0,awayScore:0,homeFouls:0,awayFouls:0,homeTimeouts:0,awayTimeouts:0,possession:"none",homeLogo:"",awayLogo:"",homeColor:"#ff6500",awayColor:"#13aef5",q:1,clockSeconds:600,clockRunning:false,clockEndAt:null},editH=false,editA=false,editC=false;
+let state={homeScore:0,awayScore:0,homeFouls:0,awayFouls:0,homeTimeouts:0,awayTimeouts:0,possession:"none",homeLogo:"",awayLogo:"",homeColor:"#ff6500",awayColor:"#13aef5",q:1,clockSeconds:600,clockRunning:false,clockEndAt:null},editH=false,editA=false,editC=false;
 const $=id=>document.getElementById(id);
 function sec(){return state.clockRunning&&state.clockEndAt?Math.max(0,Math.ceil((state.clockEndAt-Date.now())/1000)):Math.max(0,Number(state.clockSeconds)||0)}
 function fmt(x){x=Math.max(0,Math.floor(x));return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0")}
@@ -849,8 +849,10 @@ function draw(){
  $("period").textContent=(state.q==="EX"?"EX":"P"+(state.q||1));$("clock").textContent=fmt(sec());
  if(control){const hn=state.homeName||"LOCAL", an=state.awayName||"VISITA";$("hTitle").textContent=hn;$("aTitle").textContent=an;$("hFoulsTitle").textContent=hn+" • FALTAS";$("aFoulsTitle").textContent=an+" • FALTAS";$("hColorLabel").textContent="Color "+hn;$("aColorLabel").textContent="Color "+an;$("hNameLabel").textContent=hn;$("aNameLabel").textContent=an;if(!editH)$("hi").value=hn;if(!editA)$("ai").value=an;if(!editC)$("ci").value=fmt(sec());$("hc").value=state.homeColor||"#ff6500";$("ac").value=state.awayColor||"#13aef5";$("sb").textContent=state.clockRunning?"❚❚":"▶"}
 }
-async function save(x){if(!authUser){if(control)authMessage.textContent="Inicia sesión para modificar el marcador.";return;}state={...state,...x};draw();try{const {finalOverlay, scoreboardVisible, ...scoreboard} = state; await update(gameRef,scoreboard)}catch(e){if(control)authMessage.textContent="Firebase rechazó el cambio. Revisa las reglas de seguridad.";console.error(e)}}
+async function save(x){if(!authUser){if(control)authMessage.textContent="Inicia sesión para modificar el marcador.";return;}state={...state,...x};draw();try{const {finalOverlay, scoreboardVisible, homeName, awayName, ...scoreboard} = state; await update(gameRef,scoreboard)}catch(e){if(control)authMessage.textContent="Firebase rechazó el cambio. Revisa las reglas de seguridad.";console.error(e)}}
 onValue(gameRef,s=>{if(s.exists())state={...state,...s.val()};else if(authUser)set(gameRef,state);draw()},e=>{console.error(e);if(control)authMessage.textContent="No se pudo leer el marcador. Revisa las reglas de lectura."});
+// Los nombres del marcador provienen únicamente del control de equipos.
+onValue(ref(db,"teamIntroOverlay"),snapshot=>{const teams=snapshot.val()||{};state.homeName=teams.homeName||"LOCAL";state.awayName=teams.awayName||"VISITA";draw();},error=>console.error("No se pudieron sincronizar los nombres de equipos",error));
 function normalizePeriod(q){
   if(q==="EX") return "EX";
   const n=Number(String(q).replace(/^P/i,""));
@@ -865,17 +867,17 @@ function parseClock(value){
   return m?Number(m[1])*60+Number(m[2]):null;
 }
 if(control){
- $("hi").oninput=()=>editH=true;$("ai").oninput=()=>editA=true;$("ci").oninput=()=>editC=true;$("hc").oninput=()=>save({...state,homeColor:$("hc").value});$("ac").oninput=()=>save({...state,awayColor:$("ac").value});
+ $("ci").oninput=()=>editC=true;$("hc").oninput=()=>save({...state,homeColor:$("hc").value});$("ac").oninput=()=>save({...state,awayColor:$("ac").value});
  $("hm").onclick=()=>save({...state,homeScore:Math.max(0,(state.homeScore||0)-1)});$("h1").onclick=()=>save({...state,homeScore:(state.homeScore||0)+1});$("h2").onclick=()=>save({...state,homeScore:(state.homeScore||0)+2});$("h3").onclick=()=>save({...state,homeScore:(state.homeScore||0)+3});
  $("am").onclick=()=>save({...state,awayScore:Math.max(0,(state.awayScore||0)-1)});$("a1").onclick=()=>save({...state,awayScore:(state.awayScore||0)+1});$("a2").onclick=()=>save({...state,awayScore:(state.awayScore||0)+2});$("a3").onclick=()=>save({...state,awayScore:(state.awayScore||0)+3});
  $("hfm").onclick=()=>save({...state,homeFouls:Math.max(0,(state.homeFouls||0)-1)});$("hf").onclick=()=>save({...state,homeFouls:(state.homeFouls||0)+1});$("afm").onclick=()=>save({...state,awayFouls:Math.max(0,(state.awayFouls||0)-1)});$("af").onclick=()=>save({...state,awayFouls:(state.awayFouls||0)+1});
  async function loadLogo(input,key){const f=input.files&&input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement("canvas"),max=160,scale=Math.min(1,max/Math.max(im.width,im.height));c.width=Math.max(1,Math.round(im.width*scale));c.height=Math.max(1,Math.round(im.height*scale));const x=c.getContext("2d");x.fillStyle="#ffffff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);save({...state,[key]:c.toDataURL("image/jpeg",.82)})};im.src=r.result};r.readAsDataURL(f)}
- $("sn").onclick=()=>{editH=editA=false;save({...state,homeName:$("hi").value.trim()||"LOCAL",awayName:$("ai").value.trim()||"VISITA"})};
+ 
  $("sc").onclick=()=>{const seconds=parseClock($("ci").value);if(seconds===null){alert("Usa MM:SS");return}editC=false;save({...state,clockSeconds:seconds,clockRunning:false,clockEndAt:null});};
  $("pb").onclick=()=>save({...state,q:nextPeriod(state.q)});
  $("sb").onclick=()=>{const remaining=sec();if(state.clockRunning){save({...state,clockRunning:false,clockSeconds:remaining,clockEndAt:null});}else if(remaining>0){save({...state,clockRunning:true,clockSeconds:remaining,clockEndAt:Date.now()+remaining*1000});}};
  $("rc").onclick=()=>{editC=false;save({...state,clockSeconds:600,clockRunning:false,clockEndAt:null});};
- $("ra").onclick=()=>{editH=editA=editC=false;save({homeName:"LOCAL",awayName:"VISITA",homeScore:0,awayScore:0,homeFouls:0,awayFouls:0,homeTimeouts:0,awayTimeouts:0,possession:"none",homeLogo:"",awayLogo:"",homeColor:"#ff6500",awayColor:"#13aef5",q:1,clockSeconds:600,clockRunning:false,clockEndAt:null});};
+ $("ra").onclick=()=>{editH=editA=editC=false;save({homeScore:0,awayScore:0,homeFouls:0,awayFouls:0,homeTimeouts:0,awayTimeouts:0,possession:"none",homeLogo:"",awayLogo:"",homeColor:"#ff6500",awayColor:"#13aef5",q:1,clockSeconds:600,clockRunning:false,clockEndAt:null});};
 }
 // Keep the control preview usable while hiding the broadcast overlay.
 onValue(ref(db,"marcador/scoreboardVisible"),snap=>{
@@ -911,7 +913,7 @@ if(control){
      const game=gameSnapshot.val(),teams=teamsSnapshot.val()||{};
      if(!game)throw new Error("Marcador vacío");
      await set(ref(db,"marcador/finalOverlay"),{
-      visible:true,homeName:game.homeName||"LOCAL",awayName:game.awayName||"VISITA",
+      visible:true,homeName:teams.homeName||"LOCAL",awayName:teams.awayName||"VISITA",
       homeScore:game.homeScore??0,awayScore:game.awayScore??0,
       homeLogo:teams.homeLogo||game.homeLogo||"",awayLogo:teams.awayLogo||game.awayLogo||""
      });
@@ -1039,6 +1041,7 @@ setInterval(()=>{draw();if(control&&state.clockRunning&&sec()===0)save({...state
   #controls .timeLineControl #sc{height:38px !important;min-height:38px !important;font-size:10px !important;}
 }
 </style>
+<style id="P76-NAMES-READONLY">#hi[readonly],#ai[readonly]{opacity:1;cursor:default;background:#222b38!important;border-color:#495566!important}.p76NameHint{font-size:12px;color:#b9c8d8;text-align:center;margin:8px 0 0}</style>
 <script id="P76-TIEMPO-FORMATO-PLACEHOLDER">
 (function(){
   const setup=function(){
