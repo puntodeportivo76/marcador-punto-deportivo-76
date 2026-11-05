@@ -37,6 +37,17 @@ footer strong{color:#ff6500}
 .crest{width:20.5cqw;height:20.5cqw;border-radius:50%}
 .crest img{inset:0;width:100%;height:100%;max-width:none;max-height:none;object-fit:cover;object-position:center}
 .name{display:grid;place-items:center;width:20.5cqw;height:3.1cqw;padding:0 .4cqw;background:#081625;border:.12cqw solid #ff6500;font-size:1.45cqw;text-align:center;overflow:hidden}
+
+/* Correcciones de encuadre para transmisión 16:9 y Larix */
+.panel{overflow:hidden;background-size:100% 100%;background-position:center;background-repeat:no-repeat}
+/* El título está impreso en el fondo y se mantiene íntegro con la relación de aspecto original. */
+.team{top:31%;z-index:3;gap:.3cqw}
+.crest{width:20.1cqw;height:20.1cqw;flex-shrink:0}
+.name{position:relative;z-index:5;width:20.5cqw;height:3.5cqw;min-height:3.5cqw;
+  padding:.15cqw .55cqw;line-height:1.1;overflow:hidden;border:.14cqw solid #ff6500;
+  font-size:1.45cqw;white-space:normal;overflow-wrap:anywhere;
+  background:#081625;box-shadow:0 0 .3cqw #081625}
+footer{top:76.2%;height:4.5%;z-index:2}
 </style>
 <main hidden>
 <section class="panel">
