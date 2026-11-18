@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
 <script id="p76-overlay-mode">
@@ -9,9 +10,8 @@ html.p76OverlayMode,html.p76OverlayMode body{background:transparent!important;ba
 html.p76OverlayMode body{overflow:hidden}
 html.p76OverlayMode #controls{display:none!important}
 </style>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Punto Deportivo 76 - Marcador</title>
 <style>
 :root{--orange:#ff6500;--navy:#071d38;--blue:#13aef5;--white:#fff}
@@ -441,7 +441,6 @@ button{cursor:pointer}
 }
 
 </style>
-
 <style id="local-visita-10-extra">
 /* LOCAL y VISITA: 10% adicionales sobre la versión anterior */
 .tvHomeTeam .tvName,
@@ -455,7 +454,6 @@ button{cursor:pointer}
   }
 }
 </style>
-
 <style id="P76-CONTROL-REMOTO-CORRECCION-FINAL">
 /* Nombres primero */
 #controls .namesBlock{margin-bottom:9px}
@@ -503,7 +501,6 @@ button{cursor:pointer}
   color:#fff !important;
 }
 </style>
-
 <style id="P76-REMOTE-REAL-REORDER">
 #controls{
   max-width:900px !important;
@@ -622,7 +619,6 @@ button{cursor:pointer}
   #controls #ci{flex-basis:68px !important;width:68px !important;min-width:68px !important;}
 }
 </style>
-
 <style id="P76-RELOJ-AL-INICIO-BOTON-50-PORCIENTO-MAS-GRANDE">
 /* El cuadro RELOJ aparece primero. Botón verde y tiempo tienen el mismo tamaño; Aplicar ocupa el resto. */
 #controls .timeLineControl{
@@ -678,140 +674,139 @@ button{cursor:pointer}
 <style id="extras-overlay-controls">
 .extrasLink{display:flex;align-items:center;justify-content:center;text-decoration:none;text-align:center;min-height:54px;color:white;box-sizing:border-box}
 .overlayRow{display:flex!important;align-items:center;justify-content:space-between;gap:12px;padding:12px 8px;margin:0!important;border-bottom:1px solid #344a5c;color:#fff;font-size:16px;font-weight:bold;cursor:pointer}.overlayRow:last-of-type{border:0}.overlayRight{display:flex;gap:10px;align-items:center}.overlayRight small{font-size:11px;color:#c5d0d8}.overlaySwitch{position:relative;width:52px;height:29px;flex-shrink:0;display:inline-block}.overlaySwitch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;z-index:1;cursor:pointer}.overlayTrack{position:absolute;inset:0;background:#66717d;border-radius:30px;transition:.2s}.overlayTrack:before{content:"";position:absolute;width:21px;height:21px;left:4px;top:4px;border-radius:50%;background:white;transition:.2s}.overlaySwitch input:checked+.overlayTrack{background:#20a45a}.overlaySwitch input:checked+.overlayTrack:before{transform:translateX(23px)}.overlaySwitch input:focus-visible+.overlayTrack{outline:3px solid #ffab62;outline-offset:3px}.overlaySwitch input:disabled+.overlayTrack{opacity:.5}
+</style><style id="p76-horizontal-layout">
+/* P76 - Panel horizontal inspirado en el marcador de TV */
+#controls .p76ControlDashboard{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(175px,.78fr) minmax(0,1fr);gap:10px;align-items:stretch;width:100%;margin:12px 0 16px}
+#controls .p76SidePanel,#controls .p76CenterPanel{min-width:0;background:#091a2a;border:2px solid #ff6500;border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:9px}
+#controls .p76PanelHeading{text-align:center;font-size:20px;font-weight:1000;background:#102d46;padding:10px 3px;border-bottom:3px solid #ff6500;letter-spacing:.06em}
+#controls .p76SidePanel .remoteCard{margin:0!important;padding:9px!important}
+#controls .p76SidePanel .scoreCard{order:1;border-color:#ff6500!important}
+#controls .p76SidePanel .scoreCard h3{font-size:18px!important}
+#controls .p76SidePanel .scoreCard .btns{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important}
+#controls .p76SidePanel .scoreCard .btn{width:100%;min-width:0;padding:13px 1px!important;font-size:17px!important}
+#controls .p76SidePanel .remoteCard:has(input[readonly]){order:0}
+#controls .p76SidePanel .remoteCard:has(#hf),#controls .p76SidePanel .remoteCard:has(#af){order:2}
+#controls .p76SidePanel .remoteCard:has(input[type=color]){order:3}
+#controls .p76SidePanel .remoteCard:has(#hf) .btns,#controls .p76SidePanel .remoteCard:has(#af) .btns{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+#controls .p76CenterPanel .remoteSection{margin:0!important;padding:9px!important;min-width:0}
+#controls .p76CenterPanel .timeLineControl{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+#controls .p76CenterPanel .timeLineControl #ci{grid-column:1!important;width:100%!important;min-width:0!important;max-width:none!important}
+#controls .p76CenterPanel .timeLineControl #sb{grid-column:2!important;width:100%!important;min-width:0!important;max-width:none!important}
+#controls .p76CenterPanel .timeLineControl #sc{grid-column:1 / -1!important;width:100%!important;min-width:0!important;max-width:none!important;height:45px!important}
+#controls .p76CenterPanel .remoteActions{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+#controls .p76CenterPanel .remoteActions button{min-height:52px!important;white-space:normal!important}
+#controls .p76SidePanel input[readonly]{text-align:center;font-size:15px;font-weight:900}
+#controls .p76ControlDashboard .sectionTitle{text-align:center!important;font-size:12px!important}
+@media(max-width:680px){
+ #controls .p76ControlDashboard{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:6px!important}
+ #controls .p76CenterPanel{grid-column:1/-1;grid-row:1;display:grid!important;grid-template-columns:1fr 1fr!important;align-items:start}
+ #controls .p76SidePanel{padding:5px!important;gap:6px!important}
+ #controls .p76PanelHeading{font-size:15px!important;padding:7px 2px!important}
+ #controls .p76SidePanel .remoteCard{padding:5px!important}
+ #controls .p76SidePanel .scoreCard .btn{font-size:14px!important;padding:11px 0!important}
+ #controls .p76CenterPanel .remoteActions{grid-template-columns:1fr!important}
+ #controls .p76CenterPanel .remoteActions button{min-height:40px!important;font-size:11px!important;padding:5px!important}
+ #controls .p76CenterPanel .timeLineControl #ci,#controls .p76CenterPanel .timeLineControl #sb{height:46px!important;min-height:46px!important}
+ #controls .p76CenterPanel .timeLineControl #sc{height:36px!important;min-height:36px!important}
+}
+@media(min-width:681px){#controls{max-width:1150px!important;width:calc(100% - 24px)!important;margin-left:auto!important;margin-right:auto!important}}
 </style></head>
 <body>
 <section id="scoreboard">
 <div class="board">
 <div class="main tvScoreboard">
-  <div id="homeColorBox" class="tvColor tvColorHome" aria-label="Color Local"></div>
-  <div class="tvTeam tvHomeTeam">
-    <img id="homeLogo" class="tvLogo" alt="Logo Local">
-    <div class="tvTeamText"><div id="homeName" class="tvName">LOCAL</div><div class="tvStats"><span class="foulsWrap"><span class="foulsLabel">FALTAS</span><b id="homeFouls" class="foulsBox">0</b></span><i id="homePos" class="posDot"></i></div></div>
-  </div>
-  <div class="tvScore tvHomeScore"><div id="homeScore" class="score">0</div></div>
-
-  <div class="center tvCenter"><div class="timeLine"><div id="clock" class="clock">10:00</div><div id="period" class="period">P1</div></div></div>
-
-  <div class="tvScore tvAwayScore"><div id="awayScore" class="score">0</div></div>
-  <div class="tvTeam tvAwayTeam">
-    <div class="tvTeamText"><div id="awayName" class="tvName">VISITA</div><div class="tvStats"><span class="foulsWrap"><b id="awayFouls" class="foulsBox">0</b><span class="foulsLabel">FALTAS</span></span><i id="awayPos" class="posDot"></i></div></div>
-    <img id="awayLogo" class="tvLogo" alt="Logo Visita">
-  </div>
-  <div id="awayColorBox" class="tvColor tvColorAway" aria-label="Color Visita"></div>
+<div aria-label="Color Local" class="tvColor tvColorHome" id="homeColorBox"></div>
+<div class="tvTeam tvHomeTeam">
+<img alt="Logo Local" class="tvLogo" id="homeLogo"/>
+<div class="tvTeamText"><div class="tvName" id="homeName">LOCAL</div><div class="tvStats"><span class="foulsWrap"><span class="foulsLabel">FALTAS</span><b class="foulsBox" id="homeFouls">0</b></span><i class="posDot" id="homePos"></i></div></div>
+</div>
+<div class="tvScore tvHomeScore"><div class="score" id="homeScore">0</div></div>
+<div class="center tvCenter"><div class="timeLine"><div class="clock" id="clock">10:00</div><div class="period" id="period">P1</div></div></div>
+<div class="tvScore tvAwayScore"><div class="score" id="awayScore">0</div></div>
+<div class="tvTeam tvAwayTeam">
+<div class="tvTeamText"><div class="tvName" id="awayName">VISITA</div><div class="tvStats"><span class="foulsWrap"><b class="foulsBox" id="awayFouls">0</b><span class="foulsLabel">FALTAS</span></span><i class="posDot" id="awayPos"></i></div></div>
+<img alt="Logo Visita" class="tvLogo" id="awayLogo"/>
+</div>
+<div aria-label="Color Visita" class="tvColor tvColorAway" id="awayColorBox"></div>
 </div>
 </div>
 </section>
-
 <section id="controls">
-  <div class="head">CONTROL REMOTO • PUNTO DEPORTIVO 76</div>
-  <div id="authPanel" class="remoteSection" style="display:none">
-    <div class="sectionTitle">ACCESO SEGURO AL CONTROL</div>
-    <p style="margin:8px 0;color:#fff">Inicia sesión con la cuenta autorizada para modificar el marcador.</p>
-    <label for="authEmail">Correo</label><input id="authEmail" type="email" autocomplete="username" placeholder="correo autorizado" style="width:100%;margin:6px 0 10px">
-    <label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Contraseña" style="width:100%;margin:6px 0 10px">
-    <button id="loginBtn" class="action fullBtn" type="button">INICIAR SESIÓN</button>
-    <button id="logoutBtn" class="action fullBtn" type="button" style="display:none;margin-top:8px">CERRAR SESIÓN</button>
-    <p id="authMessage" role="status" style="color:#fff;overflow-wrap:anywhere;margin-top:8px"></p>
-  </div>
-  <div id="remotePanel" style="display:none">
-  <div class="remoteSection">
-    <div class="sectionTitle">1. RELOJ</div>
-    <div class="timeLineControl">
-      <input id="ci" value="10:00" placeholder="hh:ss" maxlength="5" inputmode="numeric" aria-label="Tiempo (hh:ss)">
-      <button id="sb" class="action playBtn" title="Iniciar/Pausar reloj">▶</button>
-      <button id="sc" class="action applyBtn">APLICAR TIEMPO</button>
-    </div>
-  </div>
-
-  <div class="remoteSection remoteNames">
-    <div class="sectionTitle">2. NOMBRES DE EQUIPOS</div>
-    <div class="nameGrid">
-      <div class="remoteCard">
-        <label id="hNameLabel">LOCAL</label>
-        <input id="hi" value="LOCAL" readonly aria-label="Nombre local, administrado en Control de Equipos">
-      </div>
-      <div class="remoteCard">
-        <label id="aNameLabel">VISITA</label>
-        <input id="ai" value="VISITA" readonly aria-label="Nombre visitante, administrado en Control de Equipos">
-      </div>
-    </div>
-    <p class="p76NameHint">Los nombres se administran exclusivamente en Control de Equipos.</p>
-  </div>
-
-  <div class="remoteSection">
-    <div class="sectionTitle">3. PUNTOS</div>
-    <div class="nameGrid">
-      <div class="remoteCard scoreCard">
-        <h3 id="hTitle">LOCAL</h3>
-        <div class="btns">
-          <button id="hm" class="btn minus">−1</button>
-          <button id="h1" class="btn">+1</button>
-          <button id="h2" class="btn">+2</button>
-          <button id="h3" class="btn">+3</button>
-        </div>
-      </div>
-      <div class="remoteCard scoreCard">
-        <h3 id="aTitle">VISITA</h3>
-        <div class="btns">
-          <button id="am" class="btn minus">−1</button>
-          <button id="a1" class="btn">+1</button>
-          <button id="a2" class="btn">+2</button>
-          <button id="a3" class="btn">+3</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="remoteSection">
-    <div class="sectionTitle">4. FALTAS</div>
-    <div class="nameGrid">
-      <div class="remoteCard">
-        <h3 id="hFoulsTitle">LOCAL • FALTAS</h3>
-        <div class="btns">
-          <button id="hfm" class="btn minus">F−</button>
-          <button id="hf" class="btn">F+</button>
-        </div>
-      </div>
-      <div class="remoteCard">
-        <h3 id="aFoulsTitle">VISITA • FALTAS</h3>
-        <div class="btns">
-          <button id="afm" class="btn minus">F−</button>
-          <button id="af" class="btn">F+</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="remoteSection">
-    <div class="sectionTitle">5. COLOR DE LOS EQUIPOS</div>
-    <div class="nameGrid">
-      <div class="remoteCard colorCard">
-        <label id="hColorLabel">COLOR LOCAL</label>
-        <input id="hc" type="color" value="#ff6500">
-      </div>
-      <div class="remoteCard colorCard">
-        <label id="aColorLabel">COLOR VISITA</label>
-        <input id="ac" type="color" value="#13aef5">
-      </div>
-    </div>
-  </div>
+<div class="head">CONTROL REMOTO • PUNTO DEPORTIVO 76</div>
+<div class="remoteSection" id="authPanel" style="display:none">
+<div class="sectionTitle">ACCESO SEGURO AL CONTROL</div>
+<p style="margin:8px 0;color:#fff">Inicia sesión con la cuenta autorizada para modificar el marcador.</p>
+<label for="authEmail">Correo</label><input autocomplete="username" id="authEmail" placeholder="correo autorizado" style="width:100%;margin:6px 0 10px" type="email"/>
+<label for="authPassword">Contraseña</label><input autocomplete="current-password" id="authPassword" placeholder="Contraseña" style="width:100%;margin:6px 0 10px" type="password"/>
+<button class="action fullBtn" id="loginBtn" type="button">INICIAR SESIÓN</button>
+<button class="action fullBtn" id="logoutBtn" style="display:none;margin-top:8px" type="button">CERRAR SESIÓN</button>
+<p id="authMessage" role="status" style="color:#fff;overflow-wrap:anywhere;margin-top:8px"></p>
+</div>
+<div id="remotePanel" style="display:none"><div class="p76ControlDashboard"><div class="p76SidePanel p76-home"><div class="p76PanelHeading">LOCAL</div><div class="remoteCard">
+<label id="hNameLabel">LOCAL</label>
+<input aria-label="Nombre local, administrado en Control de Equipos" id="hi" readonly="" value="LOCAL"/>
+</div><div class="remoteCard scoreCard">
+<h3 id="hTitle">LOCAL</h3>
+<div class="btns">
+<button class="btn minus" id="hm">−1</button>
+<button class="btn" id="h1">+1</button>
+<button class="btn" id="h2">+2</button>
+<button class="btn" id="h3">+3</button>
+</div>
+</div><div class="remoteCard">
+<h3 id="hFoulsTitle">LOCAL • FALTAS</h3>
+<div class="btns">
+<button class="btn minus" id="hfm">F−</button>
+<button class="btn" id="hf">F+</button>
+</div>
+</div><div class="remoteCard colorCard">
+<label id="hColorLabel">COLOR LOCAL</label>
+<input id="hc" type="color" value="#ff6500"/>
+</div></div><div class="p76CenterPanel"><div class="remoteSection">
+<div class="sectionTitle">1. RELOJ</div>
+<div class="timeLineControl">
+<input aria-label="Tiempo (hh:ss)" id="ci" inputmode="numeric" maxlength="5" placeholder="hh:ss" value="10:00"/>
+<button class="action playBtn" id="sb" title="Iniciar/Pausar reloj">▶</button>
+<button class="action applyBtn" id="sc">APLICAR TIEMPO</button>
+</div>
+</div><div class="remoteSection">
+<div class="sectionTitle">6. PERÍODO Y REINICIOS</div>
+<div class="remoteActions">
+<button class="action periodBtn" id="pb">CAMBIAR PERÍODO</button>
+<button class="action resetClockBtn" id="rc">↻ REINICIAR RELOJ</button>
+<button class="action resetGameBtn" id="ra">↶ REINICIAR PARTIDO</button>
+</div>
+</div></div><div class="p76SidePanel p76-away"><div class="p76PanelHeading">VISITA</div><div class="remoteCard">
+<label id="aNameLabel">VISITA</label>
+<input aria-label="Nombre visitante, administrado en Control de Equipos" id="ai" readonly="" value="VISITA"/>
+</div><div class="remoteCard scoreCard">
+<h3 id="aTitle">VISITA</h3>
+<div class="btns">
+<button class="btn minus" id="am">−1</button>
+<button class="btn" id="a1">+1</button>
+<button class="btn" id="a2">+2</button>
+<button class="btn" id="a3">+3</button>
+</div>
+</div><div class="remoteCard">
+<h3 id="aFoulsTitle">VISITA • FALTAS</h3>
+<div class="btns">
+<button class="btn minus" id="afm">F−</button>
+<button class="btn" id="af">F+</button>
+</div>
+</div><div class="remoteCard colorCard">
+<label id="aColorLabel">COLOR VISITA</label>
+<input id="ac" type="color" value="#13aef5"/>
+</div></div></div>
 
 
 
-  <div class="remoteSection">
-    <div class="sectionTitle">6. PERÍODO Y REINICIOS</div>
-    <div class="remoteActions">
-      <button id="pb" class="action periodBtn">CAMBIAR PERÍODO</button>
 
-      <button id="rc" class="action resetClockBtn">↻ REINICIAR RELOJ</button>
-      <button id="ra" class="action resetGameBtn">↶ REINICIAR PARTIDO</button>
-    </div>
-  </div>
+
 
 <div class="remoteSection"><div class="sectionTitle">7. CONFIGURACIONES EXTRAS</div><div class="nameGrid"><a class="action extrasLink" href="control-equipos.html">Control de Equipos</a><a class="action extrasLink" href="control-publicidad.html">Control de Publicidad</a></div></div>
-<div class="remoteSection"><div class="sectionTitle">8. CONTROL DE OVERLAY</div><label class="overlayRow" for="overlayScore"><span>Marcador</span><span class="overlayRight"><small id="overlayScoreState">Conectando…</small><span class="overlaySwitch"><input type="checkbox" role="switch" id="overlayScore" disabled><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayTeams"><span>Equipos</span><span class="overlayRight"><small id="overlayTeamsState">Conectando…</small><span class="overlaySwitch"><input type="checkbox" role="switch" id="overlayTeams" disabled><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayAds"><span>Publicidad</span><span class="overlayRight"><small id="overlayAdsState">Conectando…</small><span class="overlaySwitch"><input type="checkbox" role="switch" id="overlayAds" disabled><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayFinal"><span>Final Partido</span><span class="overlayRight"><small id="overlayFinalState">Conectando…</small><span class="overlaySwitch"><input type="checkbox" role="switch" id="overlayFinal" disabled><span class="overlayTrack"></span></span></span></label><p id="overlayStatus" role="status" style="font-size:12px;color:white;margin:10px 0 0">Verde: muestra · Gris: oculta</p></div>
-  <div class="footer">CONTROL REMOTO • PUNTO DEPORTIVO 76</div>
-  </div>
+<div class="remoteSection"><div class="sectionTitle">8. CONTROL DE OVERLAY</div><label class="overlayRow" for="overlayScore"><span>Marcador</span><span class="overlayRight"><small id="overlayScoreState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayScore" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayTeams"><span>Equipos</span><span class="overlayRight"><small id="overlayTeamsState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayTeams" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayAds"><span>Publicidad</span><span class="overlayRight"><small id="overlayAdsState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayAds" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayFinal"><span>Final Partido</span><span class="overlayRight"><small id="overlayFinalState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayFinal" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><p id="overlayStatus" role="status" style="font-size:12px;color:white;margin:10px 0 0">Verde: muestra · Gris: oculta</p></div>
+<div class="footer">CONTROL REMOTO • PUNTO DEPORTIVO 76</div>
+</div>
 </section>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
@@ -926,7 +921,6 @@ if(control){
 }
 setInterval(()=>{draw();if(control&&state.clockRunning&&sec()===0)save({...state,clockRunning:false,clockSeconds:0,clockEndAt:null})},250);draw();
 </script>
-
 <style id="LOCAL-VISITA-FINAL-VISIBLE">
 /* FORZADO FINAL: LOCAL y VISITA más grandes */
 .tvHomeTeam .tvName,
@@ -941,8 +935,6 @@ setInterval(()=>{draw();if(control&&state.clockRunning&&sec()===0)save({...state
   }
 }
 </style>
-
-
 <script id="P76-REMOTE-NAME-SYNC">
 (function(){
   function syncRemoteNames(){
@@ -970,7 +962,6 @@ setInterval(()=>{draw();if(control&&state.clockRunning&&sec()===0)save({...state
   setTimeout(syncRemoteNames,100);
 })();
 </script>
-
 </body>
 <style id="local-visita-10-final">
 /* LOCAL y VISITA: 10% más grandes nuevamente */
@@ -985,7 +976,6 @@ setInterval(()=>{draw();if(control&&state.clockRunning&&sec()===0)save({...state
   }
 }
 </style>
-
 </html>
 <style>
 /* Aumento real de LOCAL y VISITA: 15% */
@@ -1000,7 +990,6 @@ setInterval(()=>{draw();if(control&&state.clockRunning&&sec()===0)save({...state
   }
 }
 </style>
-
 <style id="P76-RELOJ-ORDEN-FORMATO-TAMANO-FINAL">
 /* Orden: tiempo, botón verde, aplicar tiempo compacto */
 #controls .timeLineControl{
