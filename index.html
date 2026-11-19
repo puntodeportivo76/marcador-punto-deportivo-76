@@ -710,7 +710,8 @@ button{cursor:pointer}
  #controls .p76CenterPanel .timeLineControl #sc{height:36px!important;min-height:36px!important}
 }
 @media(min-width:681px){#controls{max-width:1150px!important;width:calc(100% - 24px)!important;margin-left:auto!important;margin-right:auto!important}}
-</style></head>
+</style><style>
+#p76Tabs{display:flex;gap:7px;overflow-x:auto;padding:8px 0 14px;scrollbar-width:thin}#p76Tabs button{flex:0 0 auto;background:#23313e;border:1px solid #485465;color:white;border-radius:10px;padding:12px 15px;font-weight:800}#p76Tabs button.active{background:#ff6500;color:#111;border-color:#ff6500}.p76-tabpanel{display:none}.p76-tabpanel.active{display:block}.p76-group{background:#071827;border:1px solid #ff6500;border-radius:12px;padding:13px;margin:10px 0}.p76-group h3{margin:4px 0 12px}.p76-grid-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.p76-tabpanel .remoteCard{margin:10px 0}.p76-extra-btn{display:block;text-align:center;text-decoration:none;border:1px solid #ff6500;background:#12283d;color:white;border-radius:9px;padding:12px;font-weight:800;cursor:pointer;width:100%;font-size:14px}.p76-help{font-size:12px;color:#bdc8d3;line-height:1.5}.p76-tabpanel input:not([type=checkbox]):not([type=color]):not([type=file]),.p76-tabpanel select{width:100%;background:#08121d;border:1px solid #53667b;color:#fff;border-radius:8px;padding:10px;min-width:0}.p76-player{border:1px solid #34485d;border-radius:9px;margin:8px 0;padding:10px}.p76-player-head{display:grid;grid-template-columns:75px minmax(0,1fr) 35px;gap:6px;align-items:center}.p76-player-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}.p76-player-stats button{background:#ff6500;color:#111;border-radius:7px;padding:10px 3px;font-weight:900}.p76-player-stats small{display:block}.p76-tabpanel button:disabled{opacity:.4;cursor:not-allowed}@media(max-width:600px){#controls{padding:8px!important}.p76-grid-two{grid-template-columns:1fr}#p76Tabs button{padding:10px 12px;font-size:12px}.p76-player-stats{grid-template-columns:repeat(4,1fr)}}</style></head>
 <body>
 <section id="scoreboard">
 <div class="board">
@@ -742,10 +743,7 @@ button{cursor:pointer}
 <button class="action fullBtn" id="logoutBtn" style="display:none;margin-top:8px" type="button">CERRAR SESIÓN</button>
 <p id="authMessage" role="status" style="color:#fff;overflow-wrap:anywhere;margin-top:8px"></p>
 </div>
-<div id="remotePanel" style="display:none"><div class="p76ControlDashboard"><div class="p76SidePanel p76-home"><div class="p76PanelHeading">LOCAL</div><div class="remoteCard">
-<label id="hNameLabel">LOCAL</label>
-<input aria-label="Nombre local, administrado en Control de Equipos" id="hi" readonly="" value="LOCAL"/>
-</div><div class="remoteCard scoreCard">
+<div id="remotePanel" style="display:none"><nav class="p76-tabs" id="p76Tabs"><button class="p76-tab active" data-tab="0" type="button">Partido</button><button class="p76-tab" data-tab="1" type="button">Faltas / puntos</button><button class="p76-tab" data-tab="2" type="button">Reloj</button><button class="p76-tab" data-tab="3" type="button">Sonidos</button><button class="p76-tab" data-tab="4" type="button">Equipos</button><button class="p76-tab" data-tab="5" type="button">Pantalla</button><button class="p76-tab" data-tab="6" type="button">Publicidad</button><button class="p76-tab" data-tab="7" type="button">Jugadores</button></nav><div class="p76-tabpanel active" data-panel="0"><div class="p76-group"><h3>Partido</h3><div class="p76-grid-two"><button class="p76-extra-btn" id="p76StartMatch">Iniciar partido</button><button class="p76-extra-btn" id="p76EndMatch">Finalizar partido</button><button class="p76-extra-btn" id="p76Possession">Cambiar posesión</button><button class="p76-extra-btn" id="p76Shot24">24 segundos</button><button class="p76-extra-btn" id="p76Shot14">14 segundos</button></div><p class="p76-help">Los botones de posesión y 24/14 segundos se habilitarán cuando el marcador incluya esos controles en Firebase. No se simulan cambios que el tablero no pueda mostrar.</p></div></div><div class="p76-tabpanel" data-panel="1"><div class="p76-grid-two"><div class="p76-group"><div class="remoteCard scoreCard">
 <h3 id="hTitle">LOCAL</h3>
 <div class="btns">
 <button class="btn minus" id="hm">−1</button>
@@ -759,27 +757,7 @@ button{cursor:pointer}
 <button class="btn minus" id="hfm">F−</button>
 <button class="btn" id="hf">F+</button>
 </div>
-</div><div class="remoteCard colorCard">
-<label id="hColorLabel">COLOR LOCAL</label>
-<input id="hc" type="color" value="#ff6500"/>
-</div></div><div class="p76CenterPanel"><div class="remoteSection">
-<div class="sectionTitle">1. RELOJ</div>
-<div class="timeLineControl">
-<input aria-label="Tiempo (hh:ss)" id="ci" inputmode="numeric" maxlength="5" placeholder="hh:ss" value="10:00"/>
-<button class="action playBtn" id="sb" title="Iniciar/Pausar reloj">▶</button>
-<button class="action applyBtn" id="sc">APLICAR TIEMPO</button>
-</div>
-</div><div class="remoteSection">
-<div class="sectionTitle">6. PERÍODO Y REINICIOS</div>
-<div class="remoteActions">
-<button class="action periodBtn" id="pb">CAMBIAR PERÍODO</button>
-<button class="action resetClockBtn" id="rc">↻ REINICIAR RELOJ</button>
-<button class="action resetGameBtn" id="ra">↶ REINICIAR PARTIDO</button>
-</div>
-</div></div><div class="p76SidePanel p76-away"><div class="p76PanelHeading">VISITA</div><div class="remoteCard">
-<label id="aNameLabel">VISITA</label>
-<input aria-label="Nombre visitante, administrado en Control de Equipos" id="ai" readonly="" value="VISITA"/>
-</div><div class="remoteCard scoreCard">
+</div></div><div class="p76-group"><div class="remoteCard scoreCard">
 <h3 id="aTitle">VISITA</h3>
 <div class="btns">
 <button class="btn minus" id="am">−1</button>
@@ -793,18 +771,35 @@ button{cursor:pointer}
 <button class="btn minus" id="afm">F−</button>
 <button class="btn" id="af">F+</button>
 </div>
+</div></div></div></div><div class="p76-tabpanel" data-panel="2"></div><div class="p76-tabpanel" data-panel="3"><div class="p76-group"><h3>Sonidos</h3><p>Los sonidos de 24 segundos y bocina requieren un módulo de audio compatible con el marcador. Esta versión conserva el marcador actual sin introducir sonidos falsos.</p></div></div><div class="p76-tabpanel" data-panel="4"><div class="remoteCard">
+<label id="hNameLabel">LOCAL</label>
+<input aria-label="Nombre local, administrado en Control de Equipos" id="hi" readonly="" value="LOCAL"/>
+</div><div class="remoteCard colorCard">
+<label id="hColorLabel">COLOR LOCAL</label>
+<input id="hc" type="color" value="#ff6500"/>
+</div><div class="remoteCard">
+<label id="aNameLabel">VISITA</label>
+<input aria-label="Nombre visitante, administrado en Control de Equipos" id="ai" readonly="" value="VISITA"/>
 </div><div class="remoteCard colorCard">
 <label id="aColorLabel">COLOR VISITA</label>
 <input id="ac" type="color" value="#13aef5"/>
-</div></div></div>
+</div><div class="remoteSection">
+<div class="sectionTitle">1. RELOJ</div>
+<div class="timeLineControl">
+<input aria-label="Tiempo (hh:ss)" id="ci" inputmode="numeric" maxlength="5" placeholder="hh:ss" value="10:00"/>
+<button class="action playBtn" id="sb" title="Iniciar/Pausar reloj">▶</button>
+<button class="action applyBtn" id="sc">APLICAR TIEMPO</button>
+</div>
+</div><div class="remoteSection">
+<div class="sectionTitle">6. PERÍODO Y REINICIOS</div>
+<div class="remoteActions">
+<button class="action periodBtn" id="pb">CAMBIAR PERÍODO</button>
+<button class="action resetClockBtn" id="rc">↻ REINICIAR RELOJ</button>
+<button class="action resetGameBtn" id="ra">↶ REINICIAR PARTIDO</button>
+</div>
+</div><div class="remoteSection"><div class="sectionTitle">7. CONFIGURACIONES EXTRAS</div><div class="nameGrid"><a class="action extrasLink" href="control-equipos.html">Control de Equipos</a><a class="action extrasLink" href="control-publicidad.html">Control de Publicidad</a></div></div></div><div class="p76-tabpanel" data-panel="5"><div class="remoteSection"><div class="sectionTitle">8. CONTROL DE OVERLAY</div><label class="overlayRow" for="overlayScore"><span>Marcador</span><span class="overlayRight"><small id="overlayScoreState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayScore" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayTeams"><span>Equipos</span><span class="overlayRight"><small id="overlayTeamsState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayTeams" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayFinal"><span>Final Partido</span><span class="overlayRight"><small id="overlayFinalState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayFinal" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><p id="overlayStatus" role="status" style="font-size:12px;color:white;margin:10px 0 0">Verde: muestra · Gris: oculta</p></div><div class="p76-group"><h3>Pantalla</h3><a class="p76-extra-btn" href="?view=scoreboard" rel="noopener" target="_blank">Abrir marcador en pantalla</a></div></div><div class="p76-tabpanel" data-panel="6"><label class="overlayRow" for="overlayAds"><span>Publicidad</span><span class="overlayRight"><small id="overlayAdsState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayAds" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><div class="p76-group"><h3>Publicidad</h3><a class="p76-extra-btn" href="control-publicidad.html">Abrir control de publicidad</a><p>El interruptor de publicidad se encuentra arriba y mantiene su conexión existente.</p></div></div><div class="p76-tabpanel" data-panel="7"><div class="p76-group" id="p76Players"><h3>Jugadores por equipo</h3><div class="p76-grid-two"><label>Equipo<select id="p76Team"><option value="home">LOCAL</option><option value="away">VISITA</option></select></label><label>Categoría<input id="p76Category" placeholder="U13" value="U13"/></label></div><p class="p76-help" id="p76PlayerStatus">Inicia sesión para cargar el catálogo.</p><div id="p76Roster"></div><div class="p76-grid-two"><button class="p76-extra-btn" id="p76AddPlayer">+ Agregar jugador</button><button class="p76-extra-btn" id="p76SaveRoster">Guardar nómina</button></div><div class="p76-grid-two"><button class="p76-extra-btn" id="p76Export">Descargar plantilla CSV</button><label class="p76-extra-btn">Importar CSV <input accept=".csv,text/csv" id="p76Import" style="display:none" type="file"/></label></div><button class="p76-extra-btn" id="p76Sync">Sincronizar puntos y faltas manualmente</button><p class="p76-help">Los registros se guardan por equipo, categoría y partido. Máximo 12 por equipo. Antes de iniciar el partido puedes editar; al iniciarlo se bloquean nombres y números. La sincronización solicita confirmación y nunca descuenta puntos automáticamente.</p></div></div>
 
 
-
-
-
-
-<div class="remoteSection"><div class="sectionTitle">7. CONFIGURACIONES EXTRAS</div><div class="nameGrid"><a class="action extrasLink" href="control-equipos.html">Control de Equipos</a><a class="action extrasLink" href="control-publicidad.html">Control de Publicidad</a></div></div>
-<div class="remoteSection"><div class="sectionTitle">8. CONTROL DE OVERLAY</div><label class="overlayRow" for="overlayScore"><span>Marcador</span><span class="overlayRight"><small id="overlayScoreState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayScore" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayTeams"><span>Equipos</span><span class="overlayRight"><small id="overlayTeamsState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayTeams" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayAds"><span>Publicidad</span><span class="overlayRight"><small id="overlayAdsState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayAds" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayFinal"><span>Final Partido</span><span class="overlayRight"><small id="overlayFinalState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayFinal" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><p id="overlayStatus" role="status" style="font-size:12px;color:white;margin:10px 0 0">Verde: muestra · Gris: oculta</p></div>
 <div class="footer">CONTROL REMOTO • PUNTO DEPORTIVO 76</div>
 </div>
 </section>
@@ -961,6 +956,113 @@ setInterval(()=>{draw();if(control&&state.clockRunning&&sec()===0)save({...state
   document.addEventListener('DOMContentLoaded',syncRemoteNames);
   setTimeout(syncRemoteNames,100);
 })();
+</script>
+<script>document.querySelectorAll('#p76Tabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#p76Tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.p76-tabpanel').forEach(x=>x.classList.toggle('active',x.dataset.panel===b.dataset.tab));}));</script><script type="module">
+import {initializeApp,getApps} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
+import {getDatabase,ref,onValue,get,set,runTransaction,update} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js';
+import {getAuth,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+const cfg={apiKey:'AIzaSyBC17Z1q3U6lweV3NLq9zFpoDcyv27Ecg4',authDomain:'puntodeportivo-76.firebaseapp.com',databaseURL:'https://puntodeportivo-76-default-rtdb.firebaseio.com',projectId:'puntodeportivo-76',storageBucket:'puntodeportivo-76.firebasestorage.app',messagingSenderId:'881911537312',appId:'1:881911537312:web:9a5fb8f21ca43887c2'};
+const app=getApps()[0]||initializeApp(cfg),db=getDatabase(app),auth=getAuth(app),$=id=>document.getElementById(id);
+let user=null,side='home',category='U13',teamName='LOCAL',players=[],locked=false,matchId='',matchStarted=false,game={},savedStats={},synced={points:0,fouls:0};
+const slug=s=>encodeURIComponent(String(s).trim().toLowerCase().replace(/[.#$\[\]/]/g,'_'));
+const clubKey=()=>slug(teamName),catKey=()=>slug(category);
+const rosterRef=()=>ref(db,`p76Jugadores/nominas/${matchId}/${side}`);
+const statsRef=()=>ref(db,`p76Jugadores/estadisticas/${matchId}/${side}`);
+const syncRef=()=>ref(db,`p76Jugadores/sincronizacion/${matchId}/${side}`);
+const catalogRef=()=>ref(db,`p76Jugadores/catalogos/${clubKey()}/${catKey()}`);
+const status=t=>{$('p76PlayerStatus').textContent=t};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function render(){
+ const roster=$('p76Roster');roster.innerHTML='';
+ players.forEach((p,i)=>{
+ const stat=savedStats[p.id]||{};const box=document.createElement('div');box.className='p76-player';
+ box.innerHTML=`<div class="p76-player-head"><input aria-label="Número" data-field="number" value="${esc(p.number)}" ${locked?'disabled':''} maxlength="3"><input aria-label="Nombre" data-field="name" value="${esc(p.name)}" ${locked?'disabled':''}><button data-remove="1" ${locked?'disabled':''} title="Quitar">×</button></div><div class="p76-player-stats">${[['ft','+1'],['two','+2'],['three','+3'],['fouls','F']].map(([k,label])=>`<button data-stat="${k}" ${!locked?'disabled':''}>${label}<small>${Number(stat[k]||0)}</small></button>`).join('')}</div>`;
+ box.querySelectorAll('[data-field]').forEach(input=>input.oninput=()=>{p[input.dataset.field]=input.value});
+ box.querySelector('[data-remove]').onclick=()=>{players.splice(i,1);render()};
+ box.querySelectorAll('[data-stat]').forEach(b=>b.onclick=async()=>{
+ if(!user||!locked)return;
+ const key=b.dataset.stat;
+ try{await runTransaction(ref(db,`p76Jugadores/estadisticas/${matchId}/${side}/${p.id}/${key}`),n=>(Number(n)||0)+1);}
+ catch(e){status('No se pudo guardar la estadística: '+e.message)}
+ });roster.append(box);
+ });
+ $('p76AddPlayer').disabled=locked||players.length>=12||!user;
+ $('p76SaveRoster').disabled=locked||!user;
+ $('p76Import').disabled=locked||!user;
+ $('p76Sync').disabled=!locked||!user;
+}
+async function refresh(){
+ if(!user)return;
+ side=$('p76Team').value;category=$('p76Category').value.trim()||'U13';teamName=(side==='home'?game.homeName:game.awayName)||side.toUpperCase();
+ const start=await get(ref(db,'p76Jugadores/partidoActual'));
+ matchId=start.val()?.id||'preparacion';matchStarted=!!start.val()?.started;
+ const [r,c,st,sy]=await Promise.all([get(rosterRef()),get(catalogRef()),get(statsRef()),get(syncRef())]);
+ const roster=r.val();locked=matchStarted||!!roster?.locked;
+ players=Array.isArray(roster?.players)?roster.players:(Object.values(c.val()||{}).slice(0,12).map(x=>({...x})));
+ savedStats=st.val()||{};synced=sy.val()||{points:0,fouls:0};
+ status(`${teamName} · ${category} · ${players.length}/12 jugadores · ${locked?'Nómina bloqueada':'Editable hasta iniciar el partido'}`);render();
+}
+onAuthStateChanged(auth,u=>{user=u;if(u)refresh().catch(e=>status('Error Firebase: '+e.message));else{players=[];locked=false;status('Inicia sesión para administrar jugadores.');render()}});
+onValue(ref(db,'teamIntroOverlay'),s=>{const v=s.val()||{};game.homeName=v.homeName||'LOCAL';game.awayName=v.awayName||'VISITA';$('p76Team').options[0].textContent=game.homeName;$('p76Team').options[1].textContent=game.awayName;if(user)refresh().catch(console.error)});
+onValue(ref(db,'marcador'),s=>{game={...game,...(s.val()||{})}});
+$('p76Team').onchange=()=>refresh().catch(e=>status(e.message));$('p76Category').onchange=()=>refresh().catch(e=>status(e.message));
+$('p76AddPlayer').onclick=()=>{if(!locked&&players.length<12){players.push({id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),number:'',name:''});render()}};
+$('p76SaveRoster').onclick=async()=>{
+ if(!user||locked)return;
+ const list=players.map(p=>({...p,name:p.name.trim(),number:p.number.trim()}));
+ if(list.some(p=>!p.name||!p.number)||new Set(list.map(p=>p.number)).size!==list.length){alert('Completa nombres y números únicos.');return}
+ if(list.length>12){alert('Máximo 12 jugadores.');return}
+ try{
+ const liveMatch=await get(ref(db,'p76Jugadores/partidoActual'));
+ if(liveMatch.val()?.started || (liveMatch.val()?.id||'preparacion')!==matchId){await refresh();status('Partido iniciado o cambiado: no se permite modificar la nómina.');return}
+ const current=await get(rosterRef());if(current.val()?.locked){await refresh();return}
+ const updates={};list.forEach(p=>{updates[`p76Jugadores/catalogos/${clubKey()}/${catKey()}/${p.id}`]={id:p.id,name:p.name,number:p.number,club:teamName,category}});
+ updates[`p76Jugadores/nominas/${matchId}/${side}`]={team:teamName,category,players:list,locked:false};await update(ref(db),updates);status('Nómina y catálogo guardados en Firebase.');await refresh();
+ }catch(e){status('Error al guardar: '+e.message)}
+};
+$('p76Export').onclick=()=>{const csv='equipo,categoria,numero,nombre\n'+players.map(p=>[teamName,category,p.number,p.name].map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='P76_plantilla_jugadores.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+function csvRows(str){const rows=[],re=/((?:"(?:[^"]|"")*"|[^,\r\n]*))(,|\r?\n|$)/g;let row=[];for(const m of str.replace(/^\ufeff/,'').matchAll(re)){let v=m[1];if(v.startsWith('"'))v=v.slice(1,-1).replace(/""/g,'"');row.push(v.trim());if(m[2]!==','){if(row.some(Boolean))rows.push(row);row=[];}if(m[2]==='')break;}return rows}
+$('p76Import').onchange=async e=>{if(locked||!user)return;try{const rows=csvRows(await e.target.files[0].text());const header=rows.shift().map(x=>x.toLowerCase());const ix=k=>header.indexOf(k);if(ix('nombre')<0||ix('numero')<0)throw Error('Se requieren columnas numero y nombre');const imported=rows.filter(r=>ix('equipo')<0||!r[ix('equipo')]||r[ix('equipo')].toLowerCase()===teamName.toLowerCase()).filter(r=>ix('categoria')<0||!r[ix('categoria')]||r[ix('categoria')].toLowerCase()===category.toLowerCase()).map(r=>({id:'p'+crypto.randomUUID().replaceAll('-','').slice(0,16),number:r[ix('numero')],name:r[ix('nombre')]}));if(imported.length>12)throw Error('Máximo 12 jugadores para la nómina');players=imported;render();status('Importados '+imported.length+' jugadores. Pulsa Guardar nómina para enviarlos a Firebase.')}catch(err){status('Error CSV: '+err.message)}e.target.value=''};
+$('p76StartMatch').onclick=async()=>{
+ if(!user)return;
+ try{
+  const existingSnap=await get(ref(db,'p76Jugadores/partidoActual'));
+  const existing=existingSnap.val()||{};
+  if(existing.started){alert('Ya existe un partido iniciado.');return}
+  const preparationId=existing.id||'preparacion';
+  const homeTeam=game.homeName||'LOCAL',awayTeam=game.awayName||'VISITA';
+  const currentCategory=$('p76Category').value.trim()||'U13';
+  // Guardar una fotografía de ambas nóminas. Si solo hay catálogo, se incorpora
+  // al partido sin exigir que el operador pulse Guardar nómina.
+  const loadTeam=async(which,name)=>{
+   const rosterSnap=await get(ref(db,`p76Jugadores/nominas/${preparationId}/${which}`));
+   const roster=rosterSnap.val();
+   if(Array.isArray(roster?.players)&&roster.players.length&&roster.team===name&&roster.category===currentCategory)return {...roster,source:'nomina'};
+   const key=slug(name),cat=slug(currentCategory);
+   const catalogSnap=await get(ref(db,`p76Jugadores/catalogos/${key}/${cat}`));
+   const catalog=Object.values(catalogSnap.val()||{}).filter(p=>p&&p.id&&p.name&&p.number).slice(0,12);
+   if(catalog.length)return {team:name,category:currentCategory,players:catalog,source:'catalogo'};
+   return {team:name,category:currentCategory,players:[],source:'sin_nomina'};
+  };
+  const h=await loadTeam('home',homeTeam),a=await loadTeam('away',awayTeam);
+  const included=[h.players.length?'LOCAL':null,a.players.length?'VISITA':null].filter(Boolean);
+  const missing=[!h.players.length?'LOCAL':null,!a.players.length?'VISITA':null].filter(Boolean);
+  const notice=missing.length?`\nSin jugadores cargados: ${missing.join(' y ')}. El marcador funcionará normalmente y la edición quedará bloqueada para ambos equipos.`:'';
+  if(!confirm('¿Iniciar partido?'+notice))return;
+  const id='partido_'+Date.now();
+  const updates={
+   'p76Jugadores/partidoActual':{id,started:true,createdAt:Date.now(),category:currentCategory,homeTeam,awayTeam},
+   [`p76Jugadores/nominas/${id}/home`]:{...h,locked:true},
+   [`p76Jugadores/nominas/${id}/away`]:{...a,locked:true}
+  };
+  await update(ref(db),updates);
+  await refresh();
+  alert('Partido iniciado. Edición bloqueada para LOCAL y VISITA.'+(included.length?' Jugadores disponibles: '+included.join(' y ')+'.':' Sin jugadores individuales cargados.'));
+ }catch(e){alert('No se pudo iniciar: '+e.message)}
+};
+$('p76EndMatch').onclick=async()=>{if(!user||!confirm('¿Finalizar el registro del partido?'))return;try{await set(ref(db,'p76Jugadores/partidoActual'),{id:'preparacion_'+Date.now(),started:false,endedAt:Date.now()});await refresh();alert('Partido finalizado. El historial se conserva.')}catch(e){alert(e.message)}};
+$('p76Sync').onclick=async()=>{if(!user||!locked)return;try{const snap=await get(statsRef()),records=Object.values(snap.val()||{});const points=records.reduce((n,p)=>n+(p.ft||0)+2*(p.two||0)+3*(p.three||0),0),fouls=records.reduce((n,p)=>n+(p.fouls||0),0);const prev=(await get(syncRef())).val()||{points:0,fouls:0};const dp=points-(prev.points||0),df=fouls-(prev.fouls||0);if(dp<0||df<0){alert('Hay correcciones negativas. Revisa las estadísticas antes de sincronizar.');return}if(!dp&&!df){alert('Sin cambios pendientes.');return}if(!confirm(`${teamName}: sumar ${dp} puntos y ${df} faltas al marcador actual. ¿Confirmar?`))return;const scoreKey=side==='home'?'homeScore':'awayScore',foulKey=side==='home'?'homeFouls':'awayFouls';await runTransaction(ref(db,'marcador'),m=>{if(!m)return;m[scoreKey]=(Number(m[scoreKey])||0)+dp;m[foulKey]=(Number(m[foulKey])||0)+df;return m});await set(syncRef(),{points,fouls,updatedAt:Date.now()});status(`Sincronizado: +${dp} puntos y +${df} faltas.`)}catch(e){status('Error de sincronización: '+e.message)}};
+for(const id of ['p76Possession','p76Shot24','p76Shot14']){$(id).disabled=true;$(id).title='Requiere integración con el reloj de posesión existente'}
 </script>
 </body>
 <style id="local-visita-10-final">
