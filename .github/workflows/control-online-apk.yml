@@ -1,0 +1,55 @@
+
+name: Generar APK Control Online
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'android/control-online/**'
+      - '.github/workflows/control-online-apk.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  compilar-apk:
+    name: Compilar Control Online
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android/control-online
+
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v4
+
+      - name: Preparar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Preparar Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Instalar Android SDK
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+
+      - name: Preparar Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+
+      - name: Compilar APK
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Renombrar APK
+        run: cp app/build/outputs/apk/debug/app-debug.apk 'Control Online.apk'
+
+      - name: Publicar APK descargable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Control-Online-APK
+          path: android/control-online/Control Online.apk
+          if-no-files-found: error
+          retention-days: 30
