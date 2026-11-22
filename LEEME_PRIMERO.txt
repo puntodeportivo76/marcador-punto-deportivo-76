@@ -1,0 +1,14 @@
+PUNTO DEPORTIVO 76 - CONTROL ONLINE APK
+
+1. En GitHub, abre tu repositorio marcador-punto-deportivo-76.
+2. Conserva un respaldo de la rama main antes de subir nada.
+3. Sube a la raiz del repositorio las carpetas .github y android de este ZIP, conservando su estructura.
+   IMPORTANTE: en GitHub, el formulario Add file > Upload files puede no permitir carpetas ocultas si las arrastras solas. Descomprime primero y arrastra las dos carpetas completas.
+4. Confirma el commit. NO borres ni reemplaces tus 7 archivos HTML existentes.
+5. Abre la pestana Actions > Generar APK Control Online > Run workflow > Run workflow.
+6. Espera a que termine con marca verde. Abre la ejecucion y descarga el artifact Control-Online-APK.
+7. Descomprime el artifact: adentro estara Control Online.apk. Instala en Android autorizando instalacion desde esta fuente si lo pide.
+
+La app abre: https://puntodeportivo76.github.io/marcador-punto-deportivo-76/P76_control_8_pestanas.html
+El telefono necesita internet. La pantalla permanece encendida mientras la app esta abierta y visible.
+Este APK es una compilacion de prueba (debug) firmada automaticamente por GitHub Actions, no una version de Play Store. Si recompilas en otra ejecucion, la firma debug puede cambiar y requerir desinstalar la anterior antes de instalar la nueva.
