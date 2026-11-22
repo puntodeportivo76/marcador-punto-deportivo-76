@@ -15,6 +15,7 @@ jobs:
   compilar-apk:
     name: Compilar Control Online
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: android/control-online
@@ -30,10 +31,10 @@ jobs:
           java-version: '17'
 
       - name: Preparar Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Instalar Android SDK
-        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+        run: |
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses > /dev/null || true
+          "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Preparar Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -44,7 +45,8 @@ jobs:
         run: gradle --no-daemon :app:assembleDebug
 
       - name: Renombrar APK
-        run: cp app/build/outputs/apk/debug/app-debug.apk 'Control Online.apk'
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk "Control Online.apk"
 
       - name: Publicar APK descargable
         uses: actions/upload-artifact@v4
