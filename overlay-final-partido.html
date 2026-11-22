@@ -69,56 +69,62 @@ footer{top:78.7%;height:4.5%;z-index:4;left:25%;width:50%;background:#051424}
 <footer><span>P76 <strong>streaming</strong></span></footer>
 </section>
 </main>
-<script type="module">
-const byId = id => document.getElementById(id);
-for (const side of ["home", "away"]) {
-  const image = byId(side + "Logo");
-  image.onload = () => { image.hidden = false; };
-  image.onerror = () => { image.hidden = true; };
+<script type="module" id="p76-final-compatible-v92">
+// P76: solo lectura. El control v92 publica la foto del resultado final
+// en marcador/finalOverlay al activar el interruptor "Final".
+const $ = id => document.getElementById(id);
+const stage = document.querySelector('main');
+const params = new URLSearchParams(location.search);
+let finalData = null, teams = {}, catalog = {};
+const normalize = s => String(s || '').trim().toUpperCase();
+function validLogo(s) { return typeof s === 'string' && /^(data:image\/|https?:\/\/|\.\/|\/)/i.test(s.trim()); }
+function catalogLogo(name) {
+  const target = normalize(name);
+  if (!target) return '';
+  const item = Object.values(catalog).find(t => t && normalize(t.name || t.nombre || t.teamName) === target);
+  return item?.logo || item?.logoUrl || item?.escudo || '';
 }
-function render(game) {
-  if (!game) {
-    document.querySelector("main").hidden = true;
-    return;
-  }
-  for (const [side, fallback] of [["home", "Local"], ["away", "Visita"]]) {
-    const name = String(game[side + "Name"] || "").trim() || fallback;
-    byId(side + "Name").textContent = name;
-    byId(side + "Initial").textContent = name.slice(0, 2).toUpperCase();
-    byId(side + "Score").textContent = Math.max(0, Number(game[side + "Score"]) || 0);
-    const score = byId(side + "Score");
-    score.toggleAttribute("data-long", score.textContent.length > 2);
-    const image = byId(side + "Logo");
-    const logo = typeof game[side + "Logo"] === "string" ? game[side + "Logo"].trim() : "";
-    if (logo !== (image.getAttribute("src") || "")) {
-      image.hidden = true;
-      if (logo) image.src = logo;
-      else image.removeAttribute("src");
+function render() {
+  if (!finalData || finalData.visible !== true) { stage.hidden = true; return; }
+  for (const [side, fallback] of [['home','LOCAL'],['away','VISITA']]) {
+    // Los datos guardados al finalizar tienen prioridad: no cambiar resultados históricos.
+    const name = String(finalData[side+'Name'] || teams[side+'Name'] || fallback).trim();
+    $(side+'Name').textContent = name;
+    $(side+'Initial').textContent = name.slice(0,2).toUpperCase();
+    const n = Number(finalData[side+'Score']);
+    const score = $(side+'Score');
+    score.textContent = Number.isFinite(n) ? String(Math.max(0,Math.floor(n))) : '0';
+    score.toggleAttribute('data-long', score.textContent.length > 2);
+    const img = $(side+'Logo');
+    const candidates = [finalData[side+'Logo'], teams[side+'Logo'], catalogLogo(name)];
+    const logo = candidates.find(validLogo) || '';
+    if (img.getAttribute('src') !== logo) {
+      img.hidden = true;
+      if (logo) img.src = logo; else img.removeAttribute('src');
     }
   }
-  document.querySelector("main").hidden = false;
+  stage.hidden = false;
 }
-
-if (new URLSearchParams(location.search).get("demo") === "1") {
-  render({homeName:"RDS", awayName:"Talento Humano", homeScore:68, awayScore:54});
+for (const side of ['home','away']) {
+  const img = $(side+'Logo');
+  img.onload = () => { img.hidden = false; };
+  img.onerror = () => { img.hidden = true; };
+}
+if (params.get('demo') === '1') {
+  finalData = {visible:true,homeName:'RDS',awayName:'INTER',homeScore:68,awayScore:54};
+  render();
 } else {
-  const sdk = "https://www.gstatic.com/firebasejs/12.19.0/";
+  const sdk = 'https://www.gstatic.com/firebasejs/12.19.0/';
   try {
-    const [{initializeApp}, {getDatabase, ref, onValue}] = await Promise.all([
-      import(sdk + "firebase-app.js"),
-      import(sdk + "firebase-database.js")
+    const [{initializeApp,getApps,getApp},{getDatabase,ref,onValue}] = await Promise.all([
+      import(sdk+'firebase-app.js'),import(sdk+'firebase-database.js')
     ]);
-    const app = initializeApp({databaseURL:"https://puntodeportivo-76-default-rtdb.firebaseio.com"});
-    onValue(ref(getDatabase(app), "marcador/finalOverlay"), snapshot => {
-      const result = snapshot.val();
-      render(result?.visible === true ? result : null);
-    }, error => {
-      render(null);
-      console.error("No se pudo leer el marcador.", error);
-    });
-  } catch (error) {
-    console.error("No se pudo conectar al marcador.", error);
-  }
+    const app = getApps().length ? getApp() : initializeApp({databaseURL:'https://puntodeportivo-76-default-rtdb.firebaseio.com'});
+    const db = getDatabase(app);
+    onValue(ref(db,'marcador/finalOverlay'),snap=>{ finalData=snap.val();render(); },err=>{stage.hidden=true;console.error('P76 finalOverlay:',err);});
+    onValue(ref(db,'teamIntroOverlay'),snap=>{teams=snap.val()||{};render();},err=>console.error('P76 equipos:',err));
+    onValue(ref(db,'p76Equipos/catalogo'),snap=>{catalog=snap.val()||{};render();},err=>console.warn('P76 catálogo:',err));
+  } catch (err) {stage.hidden=true;console.error('P76: no fue posible conectar Firebase',err);}
 }
 </script>
 </html>

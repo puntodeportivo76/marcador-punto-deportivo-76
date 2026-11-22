@@ -1,0 +1,13 @@
+Punto Deportivo 76 - archivos con nombres del repositorio GitHub
+
+IMPORTANTE: Antes de reemplazar, descargar respaldo del repositorio actual.
+No subir todos sin comprobar que el index.html existente es la pantalla de marcador y que el control actual corresponde al archivo P76_control_8_pestanas.html.
+
+Archivos:
+P76_control_8_pestanas.html <- P76_Control_v92_Escudos_Visibles_Marcador.html
+index.html <- P76_Overlay_Marcador_v6_Orden_Faltas_Tiempos_Acceso_Firebase.html
+overlay-equipos.html <- P76_Overlay_Presentacion_Equipos_v1_Compatible_v92.html
+overlay-publicidad.html <- P76_Overlay_Publicidad_v1_Compatible_Control_v92.html
+overlay-final-partido.html <- P76_Overlay_Final_Partido_v1_Compatible_Control_v92.html
+
+No modificar control-equipos.html ni control-publicidad.html.

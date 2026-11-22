@@ -2,9 +2,7 @@
 
 <html lang="es">
 <head>
-<script id="p76-overlay-mode">
-if(new URLSearchParams(location.search).get("view")==="scoreboard")document.documentElement.classList.add("p76OverlayMode");
-</script>
+
 <style id="p76-transparent-overlay">
 html.p76OverlayMode,html.p76OverlayMode body{background:transparent!important;background-image:none!important}
 html.p76OverlayMode body{overflow:hidden}
@@ -710,61 +708,139 @@ button{cursor:pointer}
  #controls .p76CenterPanel .timeLineControl #sc{height:36px!important;min-height:36px!important}
 }
 @media(min-width:681px){#controls{max-width:1150px!important;width:calc(100% - 24px)!important;margin-left:auto!important;margin-right:auto!important}}
-</style><style>
-#p76Tabs{display:flex;gap:7px;overflow-x:auto;padding:8px 0 14px;scrollbar-width:thin}#p76Tabs button{flex:0 0 auto;background:#23313e;border:1px solid #485465;color:white;border-radius:10px;padding:12px 15px;font-weight:800}#p76Tabs button.active{background:#ff6500;color:#111;border-color:#ff6500}.p76-tabpanel{display:none}.p76-tabpanel.active{display:block}.p76-group{background:#071827;border:1px solid #ff6500;border-radius:12px;padding:13px;margin:10px 0}.p76-group h3{margin:4px 0 12px}.p76-grid-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.p76-tabpanel .remoteCard{margin:10px 0}.p76-extra-btn{display:block;text-align:center;text-decoration:none;border:1px solid #ff6500;background:#12283d;color:white;border-radius:9px;padding:12px;font-weight:800;cursor:pointer;width:100%;font-size:14px}.p76-help{font-size:12px;color:#bdc8d3;line-height:1.5}.p76-tabpanel input:not([type=checkbox]):not([type=color]):not([type=file]),.p76-tabpanel select{width:100%;background:#08121d;border:1px solid #53667b;color:#fff;border-radius:8px;padding:10px;min-width:0}.p76-player{border:1px solid #34485d;border-radius:9px;margin:8px 0;padding:10px}.p76-player-head{display:grid;grid-template-columns:75px minmax(0,1fr) 35px;gap:6px;align-items:center}.p76-player-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}.p76-player-stats button{background:#ff6500;color:#111;border-radius:7px;padding:10px 3px;font-weight:900}.p76-player-stats small{display:block}.p76-tabpanel button:disabled{opacity:.4;cursor:not-allowed}@media(max-width:600px){#controls{padding:8px!important}.p76-grid-two{grid-template-columns:1fr}#p76Tabs button{padding:10px 12px;font-size:12px}.p76-player-stats{grid-template-columns:repeat(4,1fr)}}</style><style id="p76-mobile-horizontal-v2">
-/* P76 v2: ajuste visual exclusivamente; conserva lógica, IDs y Firebase. */
-html,body{max-width:100%;overflow-x:hidden}
-#controls,#remotePanel,.p76-tabpanel,.p76-group{box-sizing:border-box;min-width:0}
-#p76Tabs{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px;overflow:visible;padding:6px 0 9px}
-#p76Tabs button{min-width:0;width:100%;padding:10px 3px;font-size:clamp(10px,1.2vw,13px);line-height:1.1;white-space:normal;border-radius:8px;min-height:40px}
-#authPanel:has(#logoutBtn[style*="block"]){padding:6px 10px!important;margin:5px 0!important;display:flex!important;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-#authPanel:has(#logoutBtn[style*="block"]) .sectionTitle,
-#authPanel:has(#logoutBtn[style*="block"]) > p:not(#authMessage),
-#authPanel:has(#logoutBtn[style*="block"]) > label{display:none!important}
-#authPanel:has(#logoutBtn[style*="block"]) #authMessage{margin:0!important;font-size:11px!important;order:0;flex:1}
-#authPanel:has(#logoutBtn[style*="block"]) #logoutBtn{order:1;width:auto!important;min-width:112px;margin:0!important;padding:7px 12px!important;font-size:11px!important;min-height:32px!important}
-.p76-group{padding:10px;margin:6px 0}
-.p76-group h3{font-size:15px;margin:2px 0 8px}
-.p76-grid-two{gap:7px}
-.p76-extra-btn{padding:9px 7px;min-height:40px;font-size:12px}
-.p76-help{font-size:10px;line-height:1.35}
-.p76-player{padding:7px;margin:6px 0}
-.p76-player-head{grid-template-columns:60px minmax(0,1fr) 32px;gap:5px}
-.p76-player-stats{gap:5px;margin-top:5px}
-.p76-player-stats button{padding:7px 2px;min-height:40px;font-size:12px}
-.p76-tabpanel input:not([type=checkbox]):not([type=color]):not([type=file]),.p76-tabpanel select{padding:7px}
-@media (orientation:landscape) and (max-height:650px) and (min-width:600px){
- #controls{width:calc(100% - 12px)!important;max-width:1200px!important;padding:5px 8px!important;margin:0 auto!important}
- #controls>.head{padding:5px 8px!important;font-size:13px!important;min-height:0!important;margin:4px 0!important}
- #scoreboard{padding:3px 6px!important}
- .board{width:100%!important;max-width:1200px!important;height:70px!important;aspect-ratio:auto!important}
- .tvScoreboard{grid-template-columns:clamp(12px,2vw,24px) minmax(70px,1fr) clamp(44px,7vw,68px) clamp(88px,13vw,124px) clamp(44px,7vw,68px) minmax(70px,1fr) clamp(12px,2vw,24px)!important;padding:3px!important}
- .tvColor,.tvTeam,.tvScore{min-height:0!important}
- .tvTeam{padding:2px 5px!important}
- .tvName{font-size:clamp(11px,1.8vw,18px)!important}
- .tvScore .score{font-size:clamp(24px,4vw,39px)!important}
- .tvCenter .clock{font-size:clamp(18px,2.7vw,27px)!important;min-width:0!important}
- .tvCenter .period{font-size:11px!important;padding:3px 4px!important}
- .tvStats{font-size:9px!important;margin-top:1px!important;padding-top:1px!important}
- #p76Tabs{gap:4px;padding:4px 0 7px}
- #p76Tabs button{padding:6px 2px!important;min-height:34px!important;font-size:clamp(9px,1.3vw,12px)!important}
- .p76-group{padding:8px;margin:5px 0}
- .p76-grid-two{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px}
- .p76-extra-btn{min-height:37px;padding:7px 4px;font-size:11px}
- .p76-tabpanel .remoteCard{margin:5px 0!important}
- #authPanel:has(#logoutBtn[style*="block"]){padding:3px 8px!important;margin:3px 0!important}
- #authPanel:has(#logoutBtn[style*="block"]) #logoutBtn{min-height:27px!important;padding:4px 9px!important}
- .p76-player{padding:5px}
- .p76-player-stats button{min-height:35px;padding:5px 2px}
+</style><style id="p76-overlay-readonly">
+html,html body{background:transparent!important;background-image:none!important;overflow:hidden!important;min-height:0!important}
+#scoreboard{display:block;width:100%;margin:0 auto}
+#scoreboard .board{margin:0 auto}
+#p76-status{position:fixed;right:8px;bottom:8px;font:11px Arial;color:#fff;background:#822b23;padding:5px 8px;border-radius:5px;z-index:99}
+#p76-status:empty{display:none}
+</style>
+<style id="p76-v2-overlay-logos-tiempos-posesion-24">
+/* Logos exactamente 60% más grandes que la base de 34 px (móvil: 23 px). */
+#scoreboard .tvLogo{width:54.4px!important;height:54.4px!important;max-width:none!important;object-fit:contain!important;flex:0 0 54.4px!important;padding:2px!important}
+#scoreboard .board{aspect-ratio:1200/166!important}
+#scoreboard .tvTeam{gap:8px!important;padding-left:8px!important;padding-right:8px!important}
+#scoreboard .tvTeamText{min-width:0!important}
+#scoreboard .tvStats{flex-wrap:wrap;justify-content:center!important;gap:3px 9px!important;padding-top:4px!important;margin-top:5px!important}
+#scoreboard .p76Extra{display:flex!important;align-items:center;justify-content:center;gap:8px;min-width:0;height:25px;font:bold 11px Arial,sans-serif;white-space:nowrap}
+#scoreboard .p76Timeout{display:inline-flex;align-items:center;gap:3px;color:#fff;letter-spacing:.02em}
+#scoreboard .p76Timeout b{display:inline-flex;align-items:center;justify-content:center;min-width:21px;height:22px;border:1px solid #ff6500;border-radius:4px;background:#101d2a;color:white;font-size:14px}
+#scoreboard .p76Possession{font-size:22px;color:#758391;line-height:1;opacity:.45;text-shadow:none}
+#scoreboard .p76Possession.on{color:#ffad32;opacity:1;text-shadow:0 0 8px #ff6500}
+#scoreboard .p76Shot{display:inline-flex;align-items:center;justify-content:center;min-width:35px;height:27px;border:2px solid #ff6500;border-radius:5px;background:#08111a;color:#89939e;font-size:21px;font-weight:1000;font-variant-numeric:tabular-nums;opacity:.65}
+#scoreboard .p76Shot.active{color:#fff;opacity:1}
+#scoreboard .p76Shot.expired{color:#ff4b4b;border-color:#ff4b4b}
+#scoreboard .tvStats .posDot{display:none!important}
+@media(max-width:560px){
+ #scoreboard .board{height:75px!important;aspect-ratio:auto!important}
+ #scoreboard .tvScoreboard{grid-template-columns:12px minmax(78px,1fr) 44px 88px 44px minmax(78px,1fr) 12px!important;padding:3px 4px!important}
+ #scoreboard .tvLogo{width:36.8px!important;height:36.8px!important;flex-basis:36.8px!important;padding:1px!important}
+ #scoreboard .tvTeam{gap:3px!important;padding:2px 3px!important}
+ #scoreboard .tvStats{gap:2px!important;margin-top:2px!important;padding-top:2px!important}
+ #scoreboard .p76Extra{gap:3px!important;font-size:8px!important;height:19px!important}
+ #scoreboard .p76Timeout b{min-width:13px;height:16px;font-size:10px}
+ #scoreboard .p76Possession{font-size:14px}
+ #scoreboard .p76Shot{min-width:23px;height:20px;font-size:14px;border-width:1px}
+ #scoreboard .tvStats .foulsBox{width:22px!important;min-width:22px!important;height:20px!important;font-size:12px!important}
+ #scoreboard .tvStats .foulsLabel{font-size:8px!important}
+ #scoreboard .tvCenter .clock{font-size:17px!important;min-width:65px!important}
+ #scoreboard .tvCenter .period{font-size:10px!important;min-width:40px!important}
 }
-@media (max-width:599px){
- #p76Tabs{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
- #p76Tabs button{font-size:10px!important;padding:8px 2px!important;min-height:37px}
- .p76-grid-two{grid-template-columns:repeat(2,minmax(0,1fr))}
- .p76-player-head{grid-template-columns:52px minmax(0,1fr) 30px}
- #authPanel:has(#logoutBtn[style*="block"]) #authMessage{font-size:10px!important}
+</style>
+<style id="p76-v3-lower-fouls-timeouts">
+/* Nombre del club arriba; faltas y tiempos muertos en una línea inferior. */
+#scoreboard .tvTeamText{display:flex!important;flex-direction:column!important;justify-content:space-between!important;align-self:stretch!important;min-height:0!important;flex:1 1 auto!important}
+#scoreboard .tvName{flex:0 1 auto!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;text-align:center!important}
+#scoreboard .tvStats{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:center!important;gap:7px!important;margin-top:auto!important;padding-top:3px!important;min-height:30px!important}
+#scoreboard .tvStats .foulsWrap{display:inline-flex!important;align-items:center!important;gap:4px!important;flex:0 0 auto!important}
+#scoreboard .p76Extra{display:inline-flex!important;flex:0 0 auto!important;gap:6px!important;height:auto!important}
+#scoreboard .p76Timeout{display:inline-flex!important;align-items:center!important;gap:4px!important}
+#scoreboard .p76Timeout b{width:32px!important;min-width:32px!important;height:32px!important;border:2px solid #ff6500!important;border-radius:5px!important;background:#fff!important;color:#e00!important;font:bold 19px Arial!important}
+#scoreboard .p76TLabel{font-size:10px!important;font-weight:900!important;color:#fff!important}
+#scoreboard .tvStats .foulsBox{flex:0 0 32px!important;width:32px!important;min-width:32px!important;height:32px!important}
+@media(max-width:900px){
+ #scoreboard .tvStats{gap:4px!important}
+ #scoreboard .p76Extra{gap:4px!important}
+ #scoreboard .p76Timeout b,#scoreboard .tvStats .foulsBox{width:26px!important;min-width:26px!important;height:26px!important;font-size:16px!important}
+ #scoreboard .tvStats .foulsLabel{font-size:8px!important}
+ #scoreboard .p76Shot{min-width:29px!important;height:24px!important;font-size:17px!important}
 }
-</style></head>
+@media(max-width:560px){
+ #scoreboard .tvStats{gap:2px!important;min-height:18px!important}
+ #scoreboard .p76Extra{gap:2px!important}
+ #scoreboard .p76Timeout b,#scoreboard .tvStats .foulsBox{width:17px!important;min-width:17px!important;height:17px!important;font-size:10px!important;border-width:1px!important}
+ #scoreboard .p76TLabel{font-size:8px!important}
+ #scoreboard .p76Shot{min-width:20px!important;height:18px!important;font-size:12px!important}
+ #scoreboard .p76Possession{font-size:12px!important}
+ #scoreboard .tvStats .foulsLabel{font-size:7px!important}
+}
+</style>
+<style id="p76-v4-layout">
+/* Marcador v4: logotipos +60% sobre v3, equipos centrados y orden solicitado. */
+#scoreboard .tvTeam{position:relative!important;align-items:center!important;gap:10px!important;padding:5px 9px!important;overflow:hidden!important}
+#scoreboard .tvLogo{width:87px!important;height:87px!important;flex:0 0 87px!important;max-width:none!important;max-height:calc(100% - 8px)!important;object-fit:contain!important;padding:2px!important}
+#scoreboard .tvTeamText{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:stretch!important;align-self:stretch!important;min-width:0!important;gap:13px!important}
+#scoreboard .tvName{font-size:clamp(16px,1.9vw,25px)!important;line-height:1.15!important;min-height:30px!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;max-width:100%!important;margin:0!important;padding:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+#scoreboard .tvStats{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;justify-content:center!important;align-items:center!important;gap:6px!important;min-height:32px!important;margin:0!important;padding:4px 0 0!important;width:100%!important}
+#scoreboard .tvStats .p76Timeout,#scoreboard .tvStats .foulsWrap{display:inline-flex!important;align-items:center!important;gap:4px!important;flex:0 0 auto!important}
+#scoreboard .tvStats .p76TLabel,#scoreboard .tvStats .foulsLabel{font:bold 9px Arial!important;letter-spacing:0!important;white-space:nowrap!important;color:#fff!important}
+#scoreboard .tvStats .p76Timeout b,#scoreboard .tvStats .foulsBox{display:inline-flex!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;width:29px!important;min-width:29px!important;height:29px!important;flex:0 0 29px!important;border:2px solid #ff6500!important;border-radius:5px!important;background:#fff!important;color:#e00!important;font:bold 18px Arial!important}
+#scoreboard .tvStats .p76Shot{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:33px!important;height:29px!important;font-size:19px!important;flex:0 0 auto!important}
+#scoreboard .tvStats .p76Possession{display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:23px!important;line-height:1!important;flex:0 0 20px!important}
+#scoreboard .tvStats .posDot{display:none!important}
+#scoreboard .board{aspect-ratio:1200/166!important}
+@media(max-width:1100px){
+ #scoreboard .tvLogo{width:67px!important;height:67px!important;flex-basis:67px!important}
+ #scoreboard .tvTeam{gap:5px!important;padding:3px 5px!important}
+ #scoreboard .tvTeamText{gap:7px!important}
+ #scoreboard .tvStats{gap:3px!important}
+ #scoreboard .tvStats .p76TLabel,#scoreboard .tvStats .foulsLabel{font-size:8px!important}
+ #scoreboard .tvStats .p76Timeout b,#scoreboard .tvStats .foulsBox{width:23px!important;min-width:23px!important;height:23px!important;flex-basis:23px!important;font-size:14px!important}
+ #scoreboard .tvStats .p76Shot{min-width:27px!important;height:23px!important;font-size:16px!important}
+ #scoreboard .tvStats .p76Possession{font-size:19px!important;flex-basis:15px!important}
+}
+@media(max-width:700px){
+ #scoreboard .tvLogo{width:45px!important;height:45px!important;flex-basis:45px!important}
+ #scoreboard .tvTeamText{gap:3px!important}
+ #scoreboard .tvName{font-size:12px!important;min-height:18px!important}
+ #scoreboard .tvStats{gap:2px!important;padding-top:2px!important}
+ #scoreboard .tvStats .p76TLabel,#scoreboard .tvStats .foulsLabel{font-size:6px!important}
+ #scoreboard .tvStats .p76Timeout,#scoreboard .tvStats .foulsWrap{gap:2px!important}
+ #scoreboard .tvStats .p76Timeout b,#scoreboard .tvStats .foulsBox{width:17px!important;min-width:17px!important;height:17px!important;flex-basis:17px!important;font-size:11px!important;border-width:1px!important}
+ #scoreboard .tvStats .p76Shot{min-width:21px!important;height:18px!important;font-size:12px!important;border-width:1px!important}
+ #scoreboard .tvStats .p76Possession{font-size:14px!important;flex-basis:11px!important}
+}
+</style>
+
+<style id="p76-v5-logos25-orden">
+/* V5: logos 25% mayores que V4; conservar distribución simétrica. */
+#scoreboard .tvLogo{width:108.75px!important;height:108.75px!important;flex:0 0 108.75px!important;max-height:calc(100% - 8px)!important;object-fit:contain!important}
+#scoreboard .home .tvStats,#scoreboard .away .tvStats{display:flex!important;flex-wrap:nowrap!important;align-items:center!important}
+#scoreboard .home .p76Timeout{order:1}#scoreboard .home .foulsWrap{order:2}#scoreboard .home .p76Shot{order:3}#scoreboard .home .p76Possession{order:4}#scoreboard .home .posDot{order:5}
+#scoreboard .away .p76Possession{order:1}#scoreboard .away .p76Shot{order:2}#scoreboard .away .foulsWrap{order:3}#scoreboard .away .p76Timeout{order:4}#scoreboard .away .posDot{order:5}
+@media(max-width:900px){#scoreboard .tvLogo{width:83.75px!important;height:83.75px!important;flex-basis:83.75px!important}}
+@media(max-width:600px){#scoreboard .tvLogo{width:56.25px!important;height:56.25px!important;flex-basis:56.25px!important}}
+</style>
+<style id="p76-v6-orden-real">
+/* Usar las clases reales del HTML, no .home/.away. */
+#scoreboard .tvHomeTeam .tvStats,#scoreboard .tvAwayTeam .tvStats{display:flex!important;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important;gap:5px!important;justify-content:center!important}
+#scoreboard .tvHomeTeam .foulsWrap{order:1!important}
+#scoreboard .tvHomeTeam .p76Timeout{order:2!important}
+#scoreboard .tvHomeTeam .p76Shot{order:3!important}
+#scoreboard .tvHomeTeam .p76Possession{order:4!important}
+#scoreboard .tvHomeTeam .posDot{display:none!important}
+#scoreboard .tvAwayTeam .p76Possession{order:1!important}
+#scoreboard .tvAwayTeam .p76Shot{order:2!important}
+#scoreboard .tvAwayTeam .foulsWrap{order:3!important}
+#scoreboard .tvAwayTeam .p76Timeout{order:4!important}
+#scoreboard .tvAwayTeam .posDot{display:none!important}
+#p76-auth-box{position:fixed;right:14px;bottom:46px;z-index:99999;background:#12243a;color:#fff;padding:14px;border:2px solid #ff6500;border-radius:9px;width:min(340px,calc(100vw - 28px));font:13px Arial;box-shadow:0 6px 20px #0008}
+#p76-auth-box input{width:100%;padding:9px;margin:5px 0;color:#111;background:#fff;border:1px solid #888;border-radius:5px}
+#p76-auth-box button{padding:9px 13px;background:#ff6500;color:#111;border:0;border-radius:5px;font-weight:bold;cursor:pointer}
+#p76-auth-box small{display:block;line-height:1.4;margin-top:7px}
+#p76-auth-box[hidden]{display:none!important}
+</style>
+</head>
 <body>
 <section id="scoreboard">
 <div class="board">
@@ -772,450 +848,109 @@ html,body{max-width:100%;overflow-x:hidden}
 <div aria-label="Color Local" class="tvColor tvColorHome" id="homeColorBox"></div>
 <div class="tvTeam tvHomeTeam">
 <img alt="Logo Local" class="tvLogo" id="homeLogo"/>
-<div class="tvTeamText"><div class="tvName" id="homeName">LOCAL</div><div class="tvStats"><span class="foulsWrap"><span class="foulsLabel">FALTAS</span><b class="foulsBox" id="homeFouls">0</b></span><i class="posDot" id="homePos"></i></div></div>
+<div class="tvTeamText"><div class="tvName" id="homeName">LOCAL</div><div class="tvStats"><span class="p76Timeout"><span class="p76TLabel">TIEMPOS</span><b id="homeTimeouts">0</b></span><span class="foulsWrap"><span class="foulsLabel">FALTAS</span><b class="foulsBox" id="homeFouls">0</b></span><span class="p76Shot" id="homeShot" title="Reloj de 24/14 segundos">24</span><span class="p76Possession" id="homePossession" title="Posesión">◀</span><i class="posDot" id="homePos"></i></div></div>
 </div>
 <div class="tvScore tvHomeScore"><div class="score" id="homeScore">0</div></div>
 <div class="center tvCenter"><div class="timeLine"><div class="clock" id="clock">10:00</div><div class="period" id="period">P1</div></div></div>
 <div class="tvScore tvAwayScore"><div class="score" id="awayScore">0</div></div>
 <div class="tvTeam tvAwayTeam">
-<div class="tvTeamText"><div class="tvName" id="awayName">VISITA</div><div class="tvStats"><span class="foulsWrap"><b class="foulsBox" id="awayFouls">0</b><span class="foulsLabel">FALTAS</span></span><i class="posDot" id="awayPos"></i></div></div>
+<div class="tvTeamText"><div class="tvName" id="awayName">VISITA</div><div class="tvStats"><span class="p76Possession" id="awayPossession" title="Posesión">▶</span><span class="p76Shot" id="awayShot" title="Reloj de 24/14 segundos">24</span><span class="foulsWrap"><b class="foulsBox" id="awayFouls">0</b><span class="foulsLabel">FALTAS</span></span><span class="p76Timeout"><b id="awayTimeouts">0</b><span class="p76TLabel">TIEMPOS</span></span><i class="posDot" id="awayPos"></i></div></div>
 <img alt="Logo Visita" class="tvLogo" id="awayLogo"/>
 </div>
 <div aria-label="Color Visita" class="tvColor tvColorAway" id="awayColorBox"></div>
 </div>
 </div>
 </section>
-<section id="controls">
-<div class="head">CONTROL REMOTO • PUNTO DEPORTIVO 76</div>
-<div class="remoteSection" id="authPanel" style="display:none">
-<div class="sectionTitle">ACCESO SEGURO AL CONTROL</div>
-<p style="margin:8px 0;color:#fff">Inicia sesión con la cuenta autorizada para modificar el marcador.</p>
-<label for="authEmail">Correo</label><input autocomplete="username" id="authEmail" placeholder="correo autorizado" style="width:100%;margin:6px 0 10px" type="email"/>
-<label for="authPassword">Contraseña</label><input autocomplete="current-password" id="authPassword" placeholder="Contraseña" style="width:100%;margin:6px 0 10px" type="password"/>
-<button class="action fullBtn" id="loginBtn" type="button">INICIAR SESIÓN</button>
-<button class="action fullBtn" id="logoutBtn" style="display:none;margin-top:8px" type="button">CERRAR SESIÓN</button>
-<p id="authMessage" role="status" style="color:#fff;overflow-wrap:anywhere;margin-top:8px"></p>
-</div>
-<div id="remotePanel" style="display:none"><nav class="p76-tabs" id="p76Tabs"><button class="p76-tab active" data-tab="0" type="button">Partido</button><button class="p76-tab" data-tab="1" type="button">Faltas / puntos</button><button class="p76-tab" data-tab="2" type="button">Reloj</button><button class="p76-tab" data-tab="3" type="button">Sonidos</button><button class="p76-tab" data-tab="4" type="button">Equipos</button><button class="p76-tab" data-tab="5" type="button">Pantalla</button><button class="p76-tab" data-tab="6" type="button">Publicidad</button><button class="p76-tab" data-tab="7" type="button">Jugadores</button></nav><div class="p76-tabpanel active" data-panel="0"><div class="p76-group"><h3>Partido</h3><div class="p76-grid-two"><button class="p76-extra-btn" id="p76StartMatch">Iniciar partido</button><button class="p76-extra-btn" id="p76EndMatch">Finalizar partido</button><button class="p76-extra-btn" id="p76Possession">Cambiar posesión</button><button class="p76-extra-btn" id="p76Shot24">24 segundos</button><button class="p76-extra-btn" id="p76Shot14">14 segundos</button></div><p class="p76-help">Los botones de posesión y 24/14 segundos se habilitarán cuando el marcador incluya esos controles en Firebase. No se simulan cambios que el tablero no pueda mostrar.</p></div></div><div class="p76-tabpanel" data-panel="1"><div class="p76-grid-two"><div class="p76-group"><div class="remoteCard scoreCard">
-<h3 id="hTitle">LOCAL</h3>
-<div class="btns">
-<button class="btn minus" id="hm">−1</button>
-<button class="btn" id="h1">+1</button>
-<button class="btn" id="h2">+2</button>
-<button class="btn" id="h3">+3</button>
-</div>
-</div><div class="remoteCard">
-<h3 id="hFoulsTitle">LOCAL • FALTAS</h3>
-<div class="btns">
-<button class="btn minus" id="hfm">F−</button>
-<button class="btn" id="hf">F+</button>
-</div>
-</div></div><div class="p76-group"><div class="remoteCard scoreCard">
-<h3 id="aTitle">VISITA</h3>
-<div class="btns">
-<button class="btn minus" id="am">−1</button>
-<button class="btn" id="a1">+1</button>
-<button class="btn" id="a2">+2</button>
-<button class="btn" id="a3">+3</button>
-</div>
-</div><div class="remoteCard">
-<h3 id="aFoulsTitle">VISITA • FALTAS</h3>
-<div class="btns">
-<button class="btn minus" id="afm">F−</button>
-<button class="btn" id="af">F+</button>
-</div>
-</div></div></div></div><div class="p76-tabpanel" data-panel="2"></div><div class="p76-tabpanel" data-panel="3"><div class="p76-group"><h3>Sonidos</h3><p>Los sonidos de 24 segundos y bocina requieren un módulo de audio compatible con el marcador. Esta versión conserva el marcador actual sin introducir sonidos falsos.</p></div></div><div class="p76-tabpanel" data-panel="4"><div class="remoteCard">
-<label id="hNameLabel">LOCAL</label>
-<input aria-label="Nombre local, administrado en Control de Equipos" id="hi" readonly="" value="LOCAL"/>
-</div><div class="remoteCard colorCard">
-<label id="hColorLabel">COLOR LOCAL</label>
-<input id="hc" type="color" value="#ff6500"/>
-</div><div class="remoteCard">
-<label id="aNameLabel">VISITA</label>
-<input aria-label="Nombre visitante, administrado en Control de Equipos" id="ai" readonly="" value="VISITA"/>
-</div><div class="remoteCard colorCard">
-<label id="aColorLabel">COLOR VISITA</label>
-<input id="ac" type="color" value="#13aef5"/>
-</div><div class="remoteSection">
-<div class="sectionTitle">1. RELOJ</div>
-<div class="timeLineControl">
-<input aria-label="Tiempo (hh:ss)" id="ci" inputmode="numeric" maxlength="5" placeholder="hh:ss" value="10:00"/>
-<button class="action playBtn" id="sb" title="Iniciar/Pausar reloj">▶</button>
-<button class="action applyBtn" id="sc">APLICAR TIEMPO</button>
-</div>
-</div><div class="remoteSection">
-<div class="sectionTitle">6. PERÍODO Y REINICIOS</div>
-<div class="remoteActions">
-<button class="action periodBtn" id="pb">CAMBIAR PERÍODO</button>
-<button class="action resetClockBtn" id="rc">↻ REINICIAR RELOJ</button>
-<button class="action resetGameBtn" id="ra">↶ REINICIAR PARTIDO</button>
-</div>
-</div><div class="remoteSection"><div class="sectionTitle">7. CONFIGURACIONES EXTRAS</div><div class="nameGrid"><a class="action extrasLink" href="control-equipos.html">Control de Equipos</a><a class="action extrasLink" href="control-publicidad.html">Control de Publicidad</a></div></div></div><div class="p76-tabpanel" data-panel="5"><div class="remoteSection"><div class="sectionTitle">8. CONTROL DE OVERLAY</div><label class="overlayRow" for="overlayScore"><span>Marcador</span><span class="overlayRight"><small id="overlayScoreState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayScore" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayTeams"><span>Equipos</span><span class="overlayRight"><small id="overlayTeamsState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayTeams" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><label class="overlayRow" for="overlayFinal"><span>Final Partido</span><span class="overlayRight"><small id="overlayFinalState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayFinal" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><p id="overlayStatus" role="status" style="font-size:12px;color:white;margin:10px 0 0">Verde: muestra · Gris: oculta</p></div><div class="p76-group"><h3>Pantalla</h3><a class="p76-extra-btn" href="?view=scoreboard" rel="noopener" target="_blank">Abrir marcador en pantalla</a></div></div><div class="p76-tabpanel" data-panel="6"><label class="overlayRow" for="overlayAds"><span>Publicidad</span><span class="overlayRight"><small id="overlayAdsState">Conectando…</small><span class="overlaySwitch"><input disabled="" id="overlayAds" role="switch" type="checkbox"/><span class="overlayTrack"></span></span></span></label><div class="p76-group"><h3>Publicidad</h3><a class="p76-extra-btn" href="control-publicidad.html">Abrir control de publicidad</a><p>El interruptor de publicidad se encuentra arriba y mantiene su conexión existente.</p></div></div><div class="p76-tabpanel" data-panel="7"><div class="p76-group" id="p76Players"><h3>Jugadores por equipo</h3><div class="p76-grid-two"><label>Equipo<select id="p76Team"><option value="home">LOCAL</option><option value="away">VISITA</option></select></label><label>Categoría<input id="p76Category" placeholder="U13" value="U13"/></label></div><p class="p76-help" id="p76PlayerStatus">Inicia sesión para cargar el catálogo.</p><div id="p76Roster"></div><div class="p76-grid-two"><button class="p76-extra-btn" id="p76AddPlayer">+ Agregar jugador</button><button class="p76-extra-btn" id="p76SaveRoster">Guardar nómina</button></div><div class="p76-grid-two"><button class="p76-extra-btn" id="p76Export">Descargar plantilla CSV</button><label class="p76-extra-btn">Importar CSV <input accept=".csv,text/csv" id="p76Import" style="display:none" type="file"/></label></div><button class="p76-extra-btn" id="p76Sync">Sincronizar puntos y faltas manualmente</button><p class="p76-help">Los registros se guardan por equipo, categoría y partido. Máximo 12 por equipo. Antes de iniciar el partido puedes editar; al iniciarlo se bloquean nombres y números. La sincronización solicita confirmación y nunca descuenta puntos automáticamente.</p></div></div>
-
-
-<div class="footer">CONTROL REMOTO • PUNTO DEPORTIVO 76</div>
-</div>
-</section>
+<div id="p76-status"></div>
+<form id="p76-auth-box" hidden autocomplete="on">
+<strong>Acceso a Firebase P76</strong>
+<small>Usa la misma cuenta del Control P76. Los datos no se guardan en el archivo.</small>
+<input id="p76-auth-email" type="email" autocomplete="username" placeholder="Correo electrónico" required />
+<input id="p76-auth-password" type="password" autocomplete="current-password" placeholder="Contraseña" required />
+<button type="submit">Iniciar sesión</button>
+<small id="p76-auth-message">El marcador solo lee datos; no los modifica.</small>
+</form>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import {getDatabase,ref,onValue,set,get,update} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
-import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-const app=initializeApp({apiKey:"AIzaSyBC17Z1q3U6lweV3NLq9zFpoDcyv27Ecg4",authDomain:"puntodeportivo-76.firebaseapp.com",databaseURL:"https://puntodeportivo-76-default-rtdb.firebaseio.com",projectId:"puntodeportivo-76",storageBucket:"puntodeportivo-76.firebasestorage.app",messagingSenderId:"881911537312",appId:"1:881911537312:web:9a5fb8f21ca43887c2f3c5"});
-const db=getDatabase(app),gameRef=ref(db,"marcador"),auth=getAuth(app);
-const control=new URLSearchParams(location.search).get("view")!=="scoreboard";
-let authUser=null;
-document.getElementById("controls").style.display=control?"block":"none";
-document.getElementById("authPanel").style.display=control?"block":"none";
-document.getElementById("remotePanel").style.display="none";
-if(!control) document.getElementById("authPanel").style.display="none";
-const authMessage=document.getElementById("authMessage");
-document.getElementById("loginBtn").onclick=async()=>{
-  authMessage.textContent="Verificando acceso…";
-  try { await signInWithEmailAndPassword(auth,document.getElementById("authEmail").value.trim(),document.getElementById("authPassword").value); authMessage.textContent="Acceso autorizado."; }
-  catch(e){ const code=e?.code||"sin-codigo"; const detail=e?.message||"Firebase no entregó detalles adicionales."; authMessage.textContent="Error de inicio de sesión: "+code+" — "+detail; console.error("Firebase Auth sign-in error",{code,message:detail}); }
-};
-document.getElementById("logoutBtn").onclick=()=>signOut(auth).catch(e=>{authMessage.textContent="No se pudo cerrar sesión.";console.error(e)});
-onAuthStateChanged(auth,user=>{
-  authUser=user;
-  if(control){document.getElementById("remotePanel").style.display=user?"block":"none";document.getElementById("loginBtn").style.display=user?"none":"block";document.getElementById("logoutBtn").style.display=user?"block":"none";document.getElementById("authEmail").style.display=user?"none":"block";document.getElementById("authPassword").style.display=user?"none":"block";if(user)authMessage.textContent="Sesión iniciada. Control remoto habilitado.";}
-});
-let state={homeScore:0,awayScore:0,homeFouls:0,awayFouls:0,homeTimeouts:0,awayTimeouts:0,possession:"none",homeLogo:"",awayLogo:"",homeColor:"#ff6500",awayColor:"#13aef5",q:1,clockSeconds:600,clockRunning:false,clockEndAt:null},editH=false,editA=false,editC=false;
+import {getDatabase,ref,onValue} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 const $=id=>document.getElementById(id);
-function sec(){return state.clockRunning&&state.clockEndAt?Math.max(0,Math.ceil((state.clockEndAt-Date.now())/1000)):Math.max(0,Number(state.clockSeconds)||0)}
-function fmt(x){x=Math.max(0,Math.floor(x));return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0")}
+const params=new URLSearchParams(location.search);
+const demo=params.get('demo')==='1';
+let game={},teams={},catalog={};
+const status=$('p76-status');
+function label(v,fallback){return typeof v==='string'&&v.trim()?v.trim():fallback}
+function logo(v){return typeof v==='string' && (/^data:image\//i.test(v)||/^https:\/\//i.test(v))?v:''}
+function color(v,fallback){return typeof v==='string'&&/^#[0-9a-fA-F]{6}$/.test(v)?v:fallback}
+function num(v){return Math.max(0,Number(v)||0)}
+function secs(){const end=Number(game.clockEndAt);return game.clockRunning&&end>0?Math.max(0,Math.ceil((end-Date.now())/1000)):num(game.clockSeconds??600)}
+function fmt(n){n=Math.floor(n);return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+function teamData(side){
+ const fallback=side==='home'?'LOCAL':'VISITA';
+ const official=label(teams[side+'Name'],'');
+ const live=label(game[side+'Name'],'');
+ // Preferir el equipo elegido en el control; nunca mostrar LOCAL/VISITA si hay nombre real.
+ let name=(official&&official.toUpperCase()!==fallback)?official:(live&&live.toUpperCase()!==fallback?live:'');
+ if(!name){const sourceLogo=logo(game[side+'Logo'])||logo(teams[side+'Logo']);if(sourceLogo){const found=Object.values(catalog).find(t=>t&&[t.logo,t.logoUrl,t.escudo].some(v=>v===sourceLogo));name=String(found?.name||found?.nombre||'').trim()}}
+ name=name||fallback;
+ const key=Object.keys(catalog).find(k=>{const e=catalog[k]||{};return [e.name,e.nombre,k].some(x=>String(x||'').trim().toUpperCase()===name.toUpperCase())});
+ const item=catalog[key]||{};
+ return {name,logo:logo(game[side+'Logo'])||logo(teams[side+'Logo'])||logo(item.logo)||logo(item.logoUrl)||logo(item.escudo),color:color(game[side+'Color'],color(item.color||item.teamColor||item.colour,side==='home'?'#ff6500':'#13aef5'))};
+}
 function draw(){
- $("homeName").textContent=state.homeName||"LOCAL";$("awayName").textContent=state.awayName||"VISITA";
- $("homeScore").textContent=Math.max(0,state.homeScore||0);$("awayScore").textContent=Math.max(0,state.awayScore||0);
- $("homeFouls").textContent=Math.max(0,state.homeFouls||0);$("awayFouls").textContent=Math.max(0,state.awayFouls||0);
- $("homePos").classList.toggle("on",state.possession==="home");$("awayPos").classList.toggle("on",state.possession==="away");
- $("homeColorBox").style.background=state.homeColor||"#ff6500";$("awayColorBox").style.background=state.awayColor||"#13aef5";$("homeLogo").src=state.homeLogo||"";$("awayLogo").src=state.awayLogo||"";$("homeLogo").classList.toggle("show",!!state.homeLogo);$("awayLogo").classList.toggle("show",!!state.awayLogo);
- $("period").textContent=(state.q==="EX"?"EX":"P"+(state.q||1));$("clock").textContent=fmt(sec());
- if(control){const hn=state.homeName||"LOCAL", an=state.awayName||"VISITA";$("hTitle").textContent=hn;$("aTitle").textContent=an;$("hFoulsTitle").textContent=hn+" • FALTAS";$("aFoulsTitle").textContent=an+" • FALTAS";$("hColorLabel").textContent="Color "+hn;$("aColorLabel").textContent="Color "+an;$("hNameLabel").textContent=hn;$("aNameLabel").textContent=an;if(!editH)$("hi").value=hn;if(!editA)$("ai").value=an;if(!editC)$("ci").value=fmt(sec());$("hc").value=state.homeColor||"#ff6500";$("ac").value=state.awayColor||"#13aef5";$("sb").textContent=state.clockRunning?"❚❚":"▶"}
-}
-async function save(x){if(!authUser){if(control)authMessage.textContent="Inicia sesión para modificar el marcador.";return;}state={...state,...x};draw();try{const {finalOverlay, scoreboardVisible, homeName, awayName, ...scoreboard} = x; await update(gameRef,scoreboard)}catch(e){if(control)authMessage.textContent="Firebase rechazó el cambio. Revisa las reglas de seguridad.";console.error(e)}}
-onValue(gameRef,s=>{if(s.exists()){const {homeName,awayName,...scoreboardData}=s.val()||{};state={...state,...scoreboardData};}else if(authUser){const {homeName,awayName,...initialScoreboard}=state;set(gameRef,initialScoreboard);}draw()},e=>{console.error(e);if(control)authMessage.textContent="No se pudo leer el marcador. Revisa las reglas de lectura."});
-// Los nombres del marcador provienen únicamente del control de equipos.
-onValue(ref(db,"teamIntroOverlay"),snapshot=>{const teams=snapshot.val()||{};state.homeName=teams.homeName||"LOCAL";state.awayName=teams.awayName||"VISITA";draw();},error=>console.error("No se pudieron sincronizar los nombres de equipos",error));
-function normalizePeriod(q){
-  if(q==="EX") return "EX";
-  const n=Number(String(q).replace(/^P/i,""));
-  return Number.isInteger(n)&&n>=1&&n<=4?n:1;
-}
-function nextPeriod(q){
-  const p=normalizePeriod(q);
-  return p==="EX"?1:(p<4?p+1:"EX");
-}
-function parseClock(value){
-  const m=String(value||"").trim().match(/^(\d{1,3}):([0-5]\d)$/);
-  return m?Number(m[1])*60+Number(m[2]):null;
-}
-if(control){
- $("ci").oninput=()=>editC=true;$("hc").oninput=()=>save({...state,homeColor:$("hc").value});$("ac").oninput=()=>save({...state,awayColor:$("ac").value});
- $("hm").onclick=()=>save({...state,homeScore:Math.max(0,(state.homeScore||0)-1)});$("h1").onclick=()=>save({...state,homeScore:(state.homeScore||0)+1});$("h2").onclick=()=>save({...state,homeScore:(state.homeScore||0)+2});$("h3").onclick=()=>save({...state,homeScore:(state.homeScore||0)+3});
- $("am").onclick=()=>save({...state,awayScore:Math.max(0,(state.awayScore||0)-1)});$("a1").onclick=()=>save({...state,awayScore:(state.awayScore||0)+1});$("a2").onclick=()=>save({...state,awayScore:(state.awayScore||0)+2});$("a3").onclick=()=>save({...state,awayScore:(state.awayScore||0)+3});
- $("hfm").onclick=()=>save({...state,homeFouls:Math.max(0,(state.homeFouls||0)-1)});$("hf").onclick=()=>save({...state,homeFouls:(state.homeFouls||0)+1});$("afm").onclick=()=>save({...state,awayFouls:Math.max(0,(state.awayFouls||0)-1)});$("af").onclick=()=>save({...state,awayFouls:(state.awayFouls||0)+1});
- async function loadLogo(input,key){const f=input.files&&input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement("canvas"),max=160,scale=Math.min(1,max/Math.max(im.width,im.height));c.width=Math.max(1,Math.round(im.width*scale));c.height=Math.max(1,Math.round(im.height*scale));const x=c.getContext("2d");x.fillStyle="#ffffff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);save({...state,[key]:c.toDataURL("image/jpeg",.82)})};im.src=r.result};r.readAsDataURL(f)}
- 
- $("sc").onclick=()=>{const seconds=parseClock($("ci").value);if(seconds===null){alert("Usa MM:SS");return}editC=false;save({...state,clockSeconds:seconds,clockRunning:false,clockEndAt:null});};
- $("pb").onclick=()=>save({...state,q:nextPeriod(state.q)});
- $("sb").onclick=()=>{const remaining=sec();if(state.clockRunning){save({...state,clockRunning:false,clockSeconds:remaining,clockEndAt:null});}else if(remaining>0){save({...state,clockRunning:true,clockSeconds:remaining,clockEndAt:Date.now()+remaining*1000});}};
- $("rc").onclick=()=>{editC=false;save({...state,clockSeconds:600,clockRunning:false,clockEndAt:null});};
- $("ra").onclick=()=>{editH=editA=editC=false;save({homeScore:0,awayScore:0,homeFouls:0,awayFouls:0,homeTimeouts:0,awayTimeouts:0,possession:"none",homeLogo:"",awayLogo:"",homeColor:"#ff6500",awayColor:"#13aef5",q:1,clockSeconds:600,clockRunning:false,clockEndAt:null});};
-}
-// Keep the control preview usable while hiding the broadcast overlay.
-onValue(ref(db,"marcador/scoreboardVisible"),snap=>{
- const hidden=!control && snap.val()===false;
- const board=document.getElementById("scoreboard");
- board.style.setProperty("display",hidden?"none":"block","important");
- if(!control){
-  for(const element of [document.documentElement,document.body]){
-   element.style.setProperty("background","transparent","important");
-   element.style.setProperty("background-image","none","important");
-  }
+ const h=teamData('home'),a=teamData('away');
+ $('homeName').textContent=h.name;$('awayName').textContent=a.name;
+ $('homeScore').textContent=num(game.homeScore);$('awayScore').textContent=num(game.awayScore);
+ $('homeFouls').textContent=num(game.homeFouls);$('awayFouls').textContent=num(game.awayFouls);
+ $('homeColorBox').style.background=h.color;$('awayColorBox').style.background=a.color;
+ for(const [side,data] of [['home',h],['away',a]]){const el=$(side+'Logo');if(data.logo){if(el.src!==data.logo)el.src=data.logo;el.classList.add('show')}else{el.removeAttribute('src');el.classList.remove('show')}}
+ $('homePos').classList.toggle('on',game.possession==='home');$('awayPos').classList.toggle('on',game.possession==='away');
+ // Cada equipo tiene su indicador; solo el lado activo descuenta los 24/14.
+ const shotSide=String(game.shotClockSide||'none').toLowerCase();
+ const shotEnd=Number(game.shotClockEndAt);
+ const shotRemaining=game.shotClockRunning&&shotEnd>0?Math.max(0,Math.ceil((shotEnd-Date.now())/1000)):num(game.shotClockSeconds??24);
+ for(const side of ['home','away']){
+  $(side+'Timeouts').textContent=num(game[side+'Timeouts']??game[side+'TimeOuts']??0);
+  $(side+'Possession').classList.toggle('on',game.possession===side);
+  const active=shotSide===side;
+  const box=$(side+'Shot');
+  box.textContent=active?String(Math.ceil(shotRemaining)):String(num(game.shotClockDefaultSeconds??24));
+  box.classList.toggle('active',active);
+  box.classList.toggle('expired',active&&shotRemaining===0);
  }
-});
-if(control){
- const specs=[
-  ["Score","marcador/scoreboardVisible",true],
-  ["Teams","teamIntroOverlay/visible",false],
-  ["Ads","sponsorOverlay/enabled",false],
-  ["Final","marcador/finalOverlay/visible",false]
- ];
- for(const [key,path,defaultOn] of specs){
-  const input=$("overlay"+key),label=$("overlay"+key+"State"),target=ref(db,path);
-  let ready=false,pending=false,current=defaultOn;
-  function sync(){input.checked=current;input.disabled=!ready||pending;label.textContent=current?"Visible":"Oculto";}
-  onValue(target,snap=>{current=snap.exists()?snap.val()===true:defaultOn;ready=true;sync()},()=>{ready=false;sync();label.textContent="Sin conexión"});
-  input.addEventListener("change",async()=>{
-   if(!authUser||!ready||pending){sync();return}
-   const wanted=input.checked;pending=true;input.disabled=true;
-   $("overlayStatus").textContent="Guardando…";
-   try{
-    if(key==="Final" && wanted){
-     const [gameSnapshot,teamsSnapshot]=await Promise.all([get(gameRef),get(ref(db,"teamIntroOverlay"))]);
-     const game=gameSnapshot.val(),teams=teamsSnapshot.val()||{};
-     if(!game)throw new Error("Marcador vacío");
-     await set(ref(db,"marcador/finalOverlay"),{
-      visible:true,homeName:teams.homeName||"LOCAL",awayName:teams.awayName||"VISITA",
-      homeScore:game.homeScore??0,awayScore:game.awayScore??0,
-      homeLogo:teams.homeLogo||game.homeLogo||"",awayLogo:teams.awayLogo||game.awayLogo||""
-     });
-    }else{await set(target,wanted)}
-    current=wanted;$("overlayStatus").textContent="Guardado · Verde: muestra · Gris: oculta";
-   }catch(error){$("overlayStatus").textContent="No se pudo cambiar el overlay. Revisa conexión y permisos.";console.error(error)}
-   finally{pending=false;sync()}
-  });
- }
+
+ const q=game.q??1;$('period').textContent=q==='EX'||q==='OT'?'OT':String(q).startsWith('P')?q:'P'+q;
+ $('clock').textContent=fmt(secs());
+ $('scoreboard').style.display=game.scoreboardVisible===false?'none':'block';
 }
-setInterval(()=>{draw();if(control&&state.clockRunning&&sec()===0)save({...state,clockRunning:false,clockSeconds:0,clockEndAt:null})},250);draw();
-</script>
-<style id="LOCAL-VISITA-FINAL-VISIBLE">
-/* FORZADO FINAL: LOCAL y VISITA más grandes */
-.tvHomeTeam .tvName,
-.tvAwayTeam .tvName{
-  font-size: 29px !important;
-  line-height: 1 !important;
-}
-@media (max-width:560px){
-  .tvHomeTeam .tvName,
-  .tvAwayTeam .tvName{
-    font-size: 15px !important;
-  }
-}
-</style>
-<script id="P76-REMOTE-NAME-SYNC">
-(function(){
-  function syncRemoteNames(){
-    const h=document.getElementById('hi'), a=document.getElementById('ai');
-    const ht=document.getElementById('hTitle'), at=document.getElementById('aTitle');
-    const hf=document.getElementById('hFoulsTitle'), af=document.getElementById('aFoulsTitle');
-    const hc=document.getElementById('hColorLabel'), ac=document.getElementById('aColorLabel');
-    if(h){
-      const n=h.value.trim()||'LOCAL';
-      if(ht) ht.textContent=n;
-      if(hf) hf.textContent=n+' • FALTAS';
-      if(hc) hc.textContent='COLOR '+n;
-    }
-    if(a){
-      const n=a.value.trim()||'VISITA';
-      if(at) at.textContent=n;
-      if(af) af.textContent=n+' • FALTAS';
-      if(ac) ac.textContent='COLOR '+n;
-    }
-  }
-  document.addEventListener('input',e=>{
-    if(e.target && (e.target.id==='hi'||e.target.id==='ai')) syncRemoteNames();
-  });
-  document.addEventListener('DOMContentLoaded',syncRemoteNames);
-  setTimeout(syncRemoteNames,100);
-})();
-</script>
-<script>document.querySelectorAll('#p76Tabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#p76Tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.p76-tabpanel').forEach(x=>x.classList.toggle('active',x.dataset.panel===b.dataset.tab));}));</script><script type="module">
-import {initializeApp,getApps} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
-import {getDatabase,ref,onValue,get,set,runTransaction,update} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js';
-import {getAuth,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
-const cfg={apiKey:'AIzaSyBC17Z1q3U6lweV3NLq9zFpoDcyv27Ecg4',authDomain:'puntodeportivo-76.firebaseapp.com',databaseURL:'https://puntodeportivo-76-default-rtdb.firebaseio.com',projectId:'puntodeportivo-76',storageBucket:'puntodeportivo-76.firebasestorage.app',messagingSenderId:'881911537312',appId:'1:881911537312:web:9a5fb8f21ca43887c2'};
-const app=getApps()[0]||initializeApp(cfg),db=getDatabase(app),auth=getAuth(app),$=id=>document.getElementById(id);
-let user=null,side='home',category='U13',teamName='LOCAL',players=[],locked=false,matchId='',matchStarted=false,game={},savedStats={},synced={points:0,fouls:0};
-const slug=s=>encodeURIComponent(String(s).trim().toLowerCase().replace(/[.#$\[\]/]/g,'_'));
-const clubKey=()=>slug(teamName),catKey=()=>slug(category);
-const rosterRef=()=>ref(db,`p76Jugadores/nominas/${matchId}/${side}`);
-const statsRef=()=>ref(db,`p76Jugadores/estadisticas/${matchId}/${side}`);
-const syncRef=()=>ref(db,`p76Jugadores/sincronizacion/${matchId}/${side}`);
-const catalogRef=()=>ref(db,`p76Jugadores/catalogos/${clubKey()}/${catKey()}`);
-const status=t=>{$('p76PlayerStatus').textContent=t};
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function render(){
- const roster=$('p76Roster');roster.innerHTML='';
- players.forEach((p,i)=>{
- const stat=savedStats[p.id]||{};const box=document.createElement('div');box.className='p76-player';
- box.innerHTML=`<div class="p76-player-head"><input aria-label="Número" data-field="number" value="${esc(p.number)}" ${locked?'disabled':''} maxlength="3"><input aria-label="Nombre" data-field="name" value="${esc(p.name)}" ${locked?'disabled':''}><button data-remove="1" ${locked?'disabled':''} title="Quitar">×</button></div><div class="p76-player-stats">${[['ft','+1'],['two','+2'],['three','+3'],['fouls','F']].map(([k,label])=>`<button data-stat="${k}" ${!locked?'disabled':''}>${label}<small>${Number(stat[k]||0)}</small></button>`).join('')}</div>`;
- box.querySelectorAll('[data-field]').forEach(input=>input.oninput=()=>{p[input.dataset.field]=input.value});
- box.querySelector('[data-remove]').onclick=()=>{players.splice(i,1);render()};
- box.querySelectorAll('[data-stat]').forEach(b=>b.onclick=async()=>{
- if(!user||!locked)return;
- const key=b.dataset.stat;
- try{await runTransaction(ref(db,`p76Jugadores/estadisticas/${matchId}/${side}/${p.id}/${key}`),n=>(Number(n)||0)+1);}
- catch(e){status('No se pudo guardar la estadística: '+e.message)}
- });roster.append(box);
+if(demo){
+ game={homeName:'RDS',awayName:'INTER',homeScore:42,awayScore:38,homeFouls:3,awayFouls:4,homeColor:'#d82f36',awayColor:'#2268df',clockSeconds:85,q:3,possession:'home',homeTimeouts:2,awayTimeouts:1,shotClockSide:'home',shotClockSeconds:14,shotClockRunning:false,scoreboardVisible:true};
+ draw();
+}else{
+ try{
+ const app=initializeApp({apiKey:"AIzaSyBC17Z1q3U6lweV3NLq9zFpoDcyv27Ecg4",authDomain:"puntodeportivo-76.firebaseapp.com",databaseURL:"https://puntodeportivo-76-default-rtdb.firebaseio.com",projectId:"puntodeportivo-76",storageBucket:"puntodeportivo-76.firebasestorage.app",messagingSenderId:"881911537312",appId:"1:881911537312:web:9a5fb8f21ca43887c2f3c5"});
+ const db=getDatabase(app);
+ const auth=getAuth(app);
+ const authBox=$('p76-auth-box');
+ const authMessage=$('p76-auth-message');
+ let unsubs=[];
+ const clearListeners=()=>{for(const off of unsubs){try{off()}catch{}}unsubs=[]};
+ const fail=(e)=>{console.error('Firebase lectura',e);status.textContent='Sin acceso a Firebase: '+(e?.code||'error');if(e?.code==='PERMISSION_DENIED'||e?.code==='permission-denied')authBox.hidden=false};
+ $('p76-auth-box').addEventListener('submit',async ev=>{
+   ev.preventDefault();authMessage.textContent='Comprobando credenciales…';
+   try{await signInWithEmailAndPassword(auth,$('p76-auth-email').value.trim(),$('p76-auth-password').value);$('p76-auth-password').value='';authMessage.textContent='Sesión iniciada. Comprobando permisos…';}
+   catch(e){authMessage.textContent='No se pudo iniciar sesión: '+(e?.code||'error');}
  });
- $('p76AddPlayer').disabled=locked||players.length>=12||!user;
- $('p76SaveRoster').disabled=locked||!user;
- $('p76Import').disabled=locked||!user;
- $('p76Sync').disabled=!locked||!user;
+ onAuthStateChanged(auth,user=>{
+   clearListeners();
+   if(user){authBox.hidden=true;status.textContent='Conectando a Firebase…'}
+   else {status.textContent='Conectando sin sesión…'}
+   unsubs.push(onValue(ref(db,'marcador'),s=>{game=s.val()||{};draw();status.textContent='';authBox.hidden=true},fail));
+   unsubs.push(onValue(ref(db,'teamIntroOverlay'),s=>{teams=s.val()||{};draw()},e=>{console.warn('Presentación no disponible',e)}));
+   unsubs.push(onValue(ref(db,'p76Equipos/catalogo'),s=>{catalog=s.val()||{};draw()},e=>{console.warn('Catálogo no disponible',e)}));
+ });
+ }catch(e){status.textContent='Error de conexión';console.error(e)}
+ draw();setInterval(draw,250);
 }
-async function refresh(){
- if(!user)return;
- side=$('p76Team').value;category=$('p76Category').value.trim()||'U13';teamName=(side==='home'?game.homeName:game.awayName)||side.toUpperCase();
- const start=await get(ref(db,'p76Jugadores/partidoActual'));
- matchId=start.val()?.id||'preparacion';matchStarted=!!start.val()?.started;
- const [r,c,st,sy]=await Promise.all([get(rosterRef()),get(catalogRef()),get(statsRef()),get(syncRef())]);
- const roster=r.val();locked=matchStarted||!!roster?.locked;
- players=Array.isArray(roster?.players)?roster.players:(Object.values(c.val()||{}).slice(0,12).map(x=>({...x})));
- savedStats=st.val()||{};synced=sy.val()||{points:0,fouls:0};
- status(`${teamName} · ${category} · ${players.length}/12 jugadores · ${locked?'Nómina bloqueada':'Editable hasta iniciar el partido'}`);render();
-}
-onAuthStateChanged(auth,u=>{user=u;if(u)refresh().catch(e=>status('Error Firebase: '+e.message));else{players=[];locked=false;status('Inicia sesión para administrar jugadores.');render()}});
-onValue(ref(db,'teamIntroOverlay'),s=>{const v=s.val()||{};game.homeName=v.homeName||'LOCAL';game.awayName=v.awayName||'VISITA';$('p76Team').options[0].textContent=game.homeName;$('p76Team').options[1].textContent=game.awayName;if(user)refresh().catch(console.error)});
-onValue(ref(db,'marcador'),s=>{game={...game,...(s.val()||{})}});
-$('p76Team').onchange=()=>refresh().catch(e=>status(e.message));$('p76Category').onchange=()=>refresh().catch(e=>status(e.message));
-$('p76AddPlayer').onclick=()=>{if(!locked&&players.length<12){players.push({id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),number:'',name:''});render()}};
-$('p76SaveRoster').onclick=async()=>{
- if(!user||locked)return;
- const list=players.map(p=>({...p,name:p.name.trim(),number:p.number.trim()}));
- if(list.some(p=>!p.name||!p.number)||new Set(list.map(p=>p.number)).size!==list.length){alert('Completa nombres y números únicos.');return}
- if(list.length>12){alert('Máximo 12 jugadores.');return}
- try{
- const liveMatch=await get(ref(db,'p76Jugadores/partidoActual'));
- if(liveMatch.val()?.started || (liveMatch.val()?.id||'preparacion')!==matchId){await refresh();status('Partido iniciado o cambiado: no se permite modificar la nómina.');return}
- const current=await get(rosterRef());if(current.val()?.locked){await refresh();return}
- const updates={};list.forEach(p=>{updates[`p76Jugadores/catalogos/${clubKey()}/${catKey()}/${p.id}`]={id:p.id,name:p.name,number:p.number,club:teamName,category}});
- updates[`p76Jugadores/nominas/${matchId}/${side}`]={team:teamName,category,players:list,locked:false};await update(ref(db),updates);status('Nómina y catálogo guardados en Firebase.');await refresh();
- }catch(e){status('Error al guardar: '+e.message)}
-};
-$('p76Export').onclick=()=>{const csv='equipo,categoria,numero,nombre\n'+players.map(p=>[teamName,category,p.number,p.name].map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='P76_plantilla_jugadores.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
-function csvRows(str){const rows=[],re=/((?:"(?:[^"]|"")*"|[^,\r\n]*))(,|\r?\n|$)/g;let row=[];for(const m of str.replace(/^\ufeff/,'').matchAll(re)){let v=m[1];if(v.startsWith('"'))v=v.slice(1,-1).replace(/""/g,'"');row.push(v.trim());if(m[2]!==','){if(row.some(Boolean))rows.push(row);row=[];}if(m[2]==='')break;}return rows}
-$('p76Import').onchange=async e=>{if(locked||!user)return;try{const rows=csvRows(await e.target.files[0].text());const header=rows.shift().map(x=>x.toLowerCase());const ix=k=>header.indexOf(k);if(ix('nombre')<0||ix('numero')<0)throw Error('Se requieren columnas numero y nombre');const imported=rows.filter(r=>ix('equipo')<0||!r[ix('equipo')]||r[ix('equipo')].toLowerCase()===teamName.toLowerCase()).filter(r=>ix('categoria')<0||!r[ix('categoria')]||r[ix('categoria')].toLowerCase()===category.toLowerCase()).map(r=>({id:'p'+crypto.randomUUID().replaceAll('-','').slice(0,16),number:r[ix('numero')],name:r[ix('nombre')]}));if(imported.length>12)throw Error('Máximo 12 jugadores para la nómina');players=imported;render();status('Importados '+imported.length+' jugadores. Pulsa Guardar nómina para enviarlos a Firebase.')}catch(err){status('Error CSV: '+err.message)}e.target.value=''};
-$('p76StartMatch').onclick=async()=>{
- if(!user)return;
- try{
-  const existingSnap=await get(ref(db,'p76Jugadores/partidoActual'));
-  const existing=existingSnap.val()||{};
-  if(existing.started){alert('Ya existe un partido iniciado.');return}
-  const preparationId=existing.id||'preparacion';
-  const homeTeam=game.homeName||'LOCAL',awayTeam=game.awayName||'VISITA';
-  const currentCategory=$('p76Category').value.trim()||'U13';
-  // Guardar una fotografía de ambas nóminas. Si solo hay catálogo, se incorpora
-  // al partido sin exigir que el operador pulse Guardar nómina.
-  const loadTeam=async(which,name)=>{
-   const rosterSnap=await get(ref(db,`p76Jugadores/nominas/${preparationId}/${which}`));
-   const roster=rosterSnap.val();
-   if(Array.isArray(roster?.players)&&roster.players.length&&roster.team===name&&roster.category===currentCategory)return {...roster,source:'nomina'};
-   const key=slug(name),cat=slug(currentCategory);
-   const catalogSnap=await get(ref(db,`p76Jugadores/catalogos/${key}/${cat}`));
-   const catalog=Object.values(catalogSnap.val()||{}).filter(p=>p&&p.id&&p.name&&p.number).slice(0,12);
-   if(catalog.length)return {team:name,category:currentCategory,players:catalog,source:'catalogo'};
-   return {team:name,category:currentCategory,players:[],source:'sin_nomina'};
-  };
-  const h=await loadTeam('home',homeTeam),a=await loadTeam('away',awayTeam);
-  const included=[h.players.length?'LOCAL':null,a.players.length?'VISITA':null].filter(Boolean);
-  const missing=[!h.players.length?'LOCAL':null,!a.players.length?'VISITA':null].filter(Boolean);
-  const notice=missing.length?`\nSin jugadores cargados: ${missing.join(' y ')}. El marcador funcionará normalmente y la edición quedará bloqueada para ambos equipos.`:'';
-  if(!confirm('¿Iniciar partido?'+notice))return;
-  const id='partido_'+Date.now();
-  const updates={
-   'p76Jugadores/partidoActual':{id,started:true,createdAt:Date.now(),category:currentCategory,homeTeam,awayTeam},
-   [`p76Jugadores/nominas/${id}/home`]:{...h,locked:true},
-   [`p76Jugadores/nominas/${id}/away`]:{...a,locked:true}
-  };
-  await update(ref(db),updates);
-  await refresh();
-  alert('Partido iniciado. Edición bloqueada para LOCAL y VISITA.'+(included.length?' Jugadores disponibles: '+included.join(' y ')+'.':' Sin jugadores individuales cargados.'));
- }catch(e){alert('No se pudo iniciar: '+e.message)}
-};
-$('p76EndMatch').onclick=async()=>{if(!user||!confirm('¿Finalizar el registro del partido?'))return;try{await set(ref(db,'p76Jugadores/partidoActual'),{id:'preparacion_'+Date.now(),started:false,endedAt:Date.now()});await refresh();alert('Partido finalizado. El historial se conserva.')}catch(e){alert(e.message)}};
-$('p76Sync').onclick=async()=>{if(!user||!locked)return;try{const snap=await get(statsRef()),records=Object.values(snap.val()||{});const points=records.reduce((n,p)=>n+(p.ft||0)+2*(p.two||0)+3*(p.three||0),0),fouls=records.reduce((n,p)=>n+(p.fouls||0),0);const prev=(await get(syncRef())).val()||{points:0,fouls:0};const dp=points-(prev.points||0),df=fouls-(prev.fouls||0);if(dp<0||df<0){alert('Hay correcciones negativas. Revisa las estadísticas antes de sincronizar.');return}if(!dp&&!df){alert('Sin cambios pendientes.');return}if(!confirm(`${teamName}: sumar ${dp} puntos y ${df} faltas al marcador actual. ¿Confirmar?`))return;const scoreKey=side==='home'?'homeScore':'awayScore',foulKey=side==='home'?'homeFouls':'awayFouls';await runTransaction(ref(db,'marcador'),m=>{if(!m)return;m[scoreKey]=(Number(m[scoreKey])||0)+dp;m[foulKey]=(Number(m[foulKey])||0)+df;return m});await set(syncRef(),{points,fouls,updatedAt:Date.now()});status(`Sincronizado: +${dp} puntos y +${df} faltas.`)}catch(e){status('Error de sincronización: '+e.message)}};
-for(const id of ['p76Possession','p76Shot24','p76Shot14']){$(id).disabled=true;$(id).title='Requiere integración con el reloj de posesión existente'}
 </script>
-</body>
-<style id="local-visita-10-final">
-/* LOCAL y VISITA: 10% más grandes nuevamente */
-.tvHomeTeam .tvName,
-.tvAwayTeam .tvName{
-  font-size:32px !important;
-}
-@media(max-width:560px){
-  .tvHomeTeam .tvName,
-  .tvAwayTeam .tvName{
-    font-size:17px !important;
-  }
-}
-</style>
-</html>
-<style>
-/* Aumento real de LOCAL y VISITA: 15% */
-.tvHomeTeam .tvName,
-.tvAwayTeam .tvName{
-  font-size:clamp(16px,2.65vw,29px) !important;
-}
-@media(max-width:560px){
-  .tvHomeTeam .tvName,
-  .tvAwayTeam .tvName{
-    font-size:13.2px !important;
-  }
-}
-</style>
-<style id="P76-RELOJ-ORDEN-FORMATO-TAMANO-FINAL">
-/* Orden: tiempo, botón verde, aplicar tiempo compacto */
-#controls .timeLineControl{
-  display:grid !important;
-  grid-template-columns:minmax(54px, .5fr) minmax(0, 1fr) minmax(86px, .62fr) !important;
-  align-items:stretch !important;
-  gap:8px !important;
-  width:100% !important;
-}
-#controls .timeLineControl #ci{
-  grid-column:1 !important;
-  width:100% !important; min-width:0 !important; max-width:none !important;
-  height:54px !important; min-height:54px !important;
-  box-sizing:border-box !important; text-align:center !important;
-  font-size:clamp(15px, 2.2vw, 19px) !important; font-weight:800 !important;
-  font-variant-numeric:tabular-nums !important; letter-spacing:.04em !important;
-}
-#controls .timeLineControl #sb{
-  grid-column:2 !important;
-  width:100% !important; min-width:0 !important; max-width:none !important;
-  height:54px !important; min-height:54px !important;
-  padding:0 !important; font-size:30px !important; line-height:1 !important;
-  border-radius:12px !important; flex:none !important;
-}
-#controls .timeLineControl #sc{
-  grid-column:3 !important;
-  width:100% !important; min-width:0 !important;
-  height:42px !important; min-height:42px !important;
-  align-self:center !important; margin:0 !important; padding:4px !important;
-  font-size:clamp(10px, 1.8vw, 14px) !important; line-height:1.1 !important;
-  white-space:normal !important;
-}
-#controls .timeLineControl #ci::placeholder{color:#8a94a3 !important;opacity:1 !important;font-size:.7em !important;letter-spacing:0 !important;}
-@media(max-width:560px){
-  #controls .timeLineControl{grid-template-columns:minmax(48px,.5fr) minmax(0,1fr) minmax(76px,.72fr) !important;gap:5px !important;}
-  #controls .timeLineControl #ci,#controls .timeLineControl #sb{height:50px !important;min-height:50px !important;}
-  #controls .timeLineControl #sb{font-size:27px !important;}
-  #controls .timeLineControl #sc{height:38px !important;min-height:38px !important;font-size:10px !important;}
-}
-</style>
-<style id="P76-NAMES-READONLY">#hi[readonly],#ai[readonly]{opacity:1;cursor:default;background:#222b38!important;border-color:#495566!important}.p76NameHint{font-size:12px;color:#b9c8d8;text-align:center;margin:8px 0 0}</style>
-<script id="P76-TIEMPO-FORMATO-PLACEHOLDER">
-(function(){
-  const setup=function(){
-    const input=document.getElementById('ci');
-    if(!input)return;
-    input.placeholder='hh:ss';
-    input.setAttribute('maxlength','5');
-    input.setAttribute('inputmode','numeric');
-    input.setAttribute('aria-label','Tiempo (hh:ss)');
-    // Acepta hasta cuatro dígitos y los convierte a hh:ss al salir del campo o aplicar.
-    // Ejemplos: 1244 -> 12:44, 552 -> 05:52, 10 -> 00:10.
-    const normalize=function(value){
-      const digits=String(value||'').replace(/\D/g,'').slice(0,4);
-      if(!digits) return '';
-      const padded=digits.padStart(4,'0');
-      return padded.slice(0,2)+':'+padded.slice(2,4);
-    };
-    input.addEventListener('input',function(){
-      const digits=this.value.replace(/\D/g,'').slice(0,4);
-      if(this.value!==digits) this.value=digits;
-    });
-    input.addEventListener('blur',function(){
-      if(this.value.trim()) this.value=normalize(this.value);
-      else this.placeholder='hh:ss';
-    });
-    const apply=document.getElementById('sc');
-    if(apply) apply.addEventListener('click',function(){
-      if(input.value.trim()) input.value=normalize(input.value);
-    },true);
-  };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
-})();
-</script>
+</body></html>

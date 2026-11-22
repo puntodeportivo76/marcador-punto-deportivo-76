@@ -48,22 +48,40 @@ import {getDatabase,ref,onValue} from "https://www.gstatic.com/firebasejs/12.19.
 import {getAuth,signInAnonymously} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 const config={apiKey:"AIzaSyBC17Z1q3U6lweV3NLq9zFpoDcyv27Ecg4",authDomain:"puntodeportivo-76.firebaseapp.com",databaseURL:"https://puntodeportivo-76-default-rtdb.firebaseio.com",projectId:"puntodeportivo-76",storageBucket:"puntodeportivo-76.firebasestorage.app",messagingSenderId:"881911537312",appId:"1:881911537312:web:9a5fb8f21ca43887c2f3c5"};
 const app=initializeApp(config,"p76-team-overlay"),db=getDatabase(app),auth=getAuth(app),stage=document.getElementById("stage");
-function render(d){
- if(!d||d.visible!==true){stage.classList.remove("show");return}
- const title=(d.eventName||"").trim(),titleEl=document.getElementById("eventTitle");
+let intro={},score={},catalog={};
+const clean=v=>String(v??'').trim();
+const key=v=>clean(v).toLocaleUpperCase('es');
+function catalogTeam(name){return Object.values(catalog).find(t=>t&&typeof t==='object'&&key(t.name||t.nombre||t.teamName)===key(name))||{};}
+function logoFor(side,name){const team=catalogTeam(name);return [intro[side+'Logo'],score[side+'Logo'],team.logo,team.logoUrl,team.escudo].find(v=>typeof v==='string'&&v.trim())||'';}
+function render(){
+ // Respetar el interruptor de presentación: nunca encender automáticamente el overlay.
+ if(intro.visible!==true){stage.classList.remove('show');return;}
+ const title=clean(intro.eventName),titleEl=document.getElementById('eventTitle');
  titleEl.textContent=title;titleEl.hidden=!title;
- document.getElementById("division").textContent=d.division||"U13";
- const g=d.category||"Femenina";
- document.getElementById("gender").textContent=g==="Masculina"?"MASCULINA":"FEMENINA";
- document.getElementById("homeName").textContent=d.homeName||"EQUIPO LOCAL";
- document.getElementById("awayName").textContent=d.awayName||"EQUIPO VISITANTE";
- for(const side of ["home","away"]){
-  const img=document.getElementById(side+"Logo"),logo=d[side+"Logo"]||"";
-  if(logo){img.src=logo;img.hidden=false}else{img.removeAttribute("src");img.hidden=true}
+ document.getElementById('division').textContent=intro.division||'U13';
+ const gender=clean(intro.category||'Femenina');
+ document.getElementById('gender').textContent=gender.toLowerCase()==='masculina'?'MASCULINA':'FEMENINA';
+ for(const side of ['home','away']){
+  const name=clean(intro[side+'Name']||score[side+'Name'])||(side==='home'?'EQUIPO LOCAL':'EQUIPO VISITANTE');
+  document.getElementById(side+'Name').textContent=name;
+  const img=document.getElementById(side+'Logo'),url=logoFor(side,name);
+  if(url){if(img.getAttribute('src')!==url)img.src=url;img.hidden=false;}
+  else{img.removeAttribute('src');img.hidden=true;}
  }
- stage.classList.add("show");
+ stage.classList.add('show');
 }
-(async()=>{try{await signInAnonymously(auth);onValue(ref(db,"teamIntroOverlay"),s=>render(s.val()),e=>{stage.classList.remove("show");console.error(e)})}catch(e){console.error("No se pudo conectar a Firebase",e)}})();
+// Modo demostración: ?demo=1. No lee ni modifica datos reales.
+if(new URLSearchParams(location.search).get('demo')==='1'){
+ intro={visible:true,eventName:'PUNTO DEPORTIVO 76',division:'U13',category:'Femenina',homeName:'RDS',awayName:'INTER'};
+ render();
+}else{
+ (async()=>{try{
+  await signInAnonymously(auth);
+  onValue(ref(db,'teamIntroOverlay'),s=>{intro=s.val()||{};render()},e=>{stage.classList.remove('show');console.error('Presentación',e)});
+  onValue(ref(db,'marcador'),s=>{score=s.val()||{};render()},e=>console.error('Marcador',e));
+  onValue(ref(db,'p76Equipos/catalogo'),s=>{catalog=s.val()||{};render()},e=>console.error('Catálogo',e));
+ }catch(e){stage.classList.remove('show');console.error('No se pudo conectar a Firebase',e)}})();
+}
 </script>
 </body>
 </html>

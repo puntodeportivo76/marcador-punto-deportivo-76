@@ -80,7 +80,15 @@ async function startOverlay() {
     onValue(ref(db, "sponsorOverlay"), snapshot => cycle(snapshot.val()), error => { stage.classList.remove("show"); console.error("Error leyendo sponsorOverlay:", error); });
   } catch (error) { stage.classList.remove("show"); console.error("No se pudo conectar a Firebase:", error); }
 }
-startOverlay();
+// Prueba local sin escritura ni lectura en Firebase: ?demo=1
+if (new URLSearchParams(location.search).get('demo') === '1') {
+  cycle({enabled:true,seconds:5,items:[
+    {name:'AUSPICIADOR DE PRUEBA 1',desc:'Publicidad Punto Deportivo 76 · demostración',logo:''},
+    {name:'AUSPICIADOR DE PRUEBA 2',desc:'Rotación automática cada 5 segundos',logo:''}
+  ]});
+} else {
+  startOverlay();
+}
 </script>
 </body>
 </html>
